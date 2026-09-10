@@ -1,25 +1,2 @@
-plugins = []
-headers = []
-redirects = []
-
-[functions]
-
-  [functions."*"]
-
 [build]
-publish = "/home/maicon/Documents/Projetos Pessoais/robo_ml_afiliados/divulgacao/site"
-publishOrigin = "default"
-
-  [build.environment]
-
-  [build.processing]
-
-    [build.processing.css]
-
-    [build.processing.html]
-
-    [build.processing.images]
-
-    [build.processing.js]
-
-  [build.services]
+publish = "."
