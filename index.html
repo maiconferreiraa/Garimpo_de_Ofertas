@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garimpo de Ofertas — Grupos de Promoções</title>
+<!-- TROCAR "https://SEU-DOMINIO-AQUI" pelo domínio real assim que ele existir (og:url e og:image precisam de URL absoluta pra gerar preview no WhatsApp) -->
+<link rel="canonical" href="https://SEU-DOMINIO-AQUI/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://SEU-DOMINIO-AQUI/">
+<meta property="og:title" content="Garimpo de Ofertas — Grupos de Promoções">
+<meta property="og:description" content="Ofertas verificadas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, direto no seu WhatsApp. Grupo 100% gratuito, sem spam.">
+<meta property="og:image" content="https://SEU-DOMINIO-AQUI/img/meta-verified.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Ofertas verificadas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, direto no seu WhatsApp. Grupo 100% gratuito, sem spam.">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0b0a12;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100vh}
+.ticker-wrap{width:100%;overflow:hidden;padding:10px 0;background:#0f0e17;border-bottom:1px solid rgba(255,176,32,0.15);position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker-track{display:flex;gap:16px;width:max-content;animation:ticker 28s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
+.badge-red{background:rgba(255,50,50,0.15);border:1px solid rgba(255,50,50,0.5);color:#ff6b6b}
+.badge-green{background:rgba(255,176,32,0.12);border:1px solid rgba(0,255,136,0.4);color:#ffb020}
+.badge-blue{background:rgba(0,170,255,0.12);border:1px solid rgba(0,170,255,0.4);color:#5ec8d8}
+.hero{position:relative;z-index:1;padding:28px 20px 32px;text-align:center}
+.pulse-dot{display:inline-block;width:8px;height:8px;background:#ffb020;border-radius:50%;margin-right:8px;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.6)}}
+.eyebrow{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#ffb020;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.hero h1{font-size:clamp(1.35rem,5.5vw,2.2rem);font-weight:900;line-height:1.2;letter-spacing:-0.5px;margin-bottom:12px;color:#fff}
+.hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.6);max-width:420px;margin:0 auto 26px;line-height:1.5}
+.hero-logos{display:flex;justify-content:center;gap:14px;margin-bottom:22px}
+.hero-logos img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,176,32,0.4)}
+.gender-ctas{display:flex;flex-direction:column;gap:14px;max-width:400px;margin:0 auto 14px}
+.btn-gender{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px 20px;border:none;border-radius:14px;font-size:0.8rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn-masc{background:#1f6f8b;color:#fff}
+.btn-masc:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 6px 16px rgba(31,111,139,0.55)}
+.btn-fem{background:#7c3aed;color:#fff}
+.btn-fem:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 6px 16px rgba(124,58,237,0.55)}
+.btn-icon{font-size:1.1rem}
+.social-proof{font-size:0.78rem;color:rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;gap:6px}
+.social-proof span{color:#ffb020;font-weight:700}
+.divider{width:100%;height:1px;background:rgba(255,255,255,0.08);margin:0}
+.section{position:relative;z-index:1;padding:44px 20px}
+.section-label{font-size:0.68rem;letter-spacing:2.5px;text-transform:uppercase;color:#ffb020;font-weight:700;margin-bottom:10px;text-align:center}
+.section-title{font-size:clamp(1.2rem,4.5vw,1.8rem);font-weight:800;line-height:1.25;text-align:center;margin-bottom:28px}
+.carousel-wrap{position:relative;overflow:hidden;border-radius:16px;max-width:340px;margin:0 auto}
+.carousel-track{display:flex;transition:transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform}
+.carousel-slide{min-width:100%;padding:0 4px}
+.offer-card{background:#141320;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;position:relative}
+.offer-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#1a1a2e}
+.offer-tag{position:absolute;top:10px;left:10px;z-index:2;font-size:0.65rem;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.3px;white-space:nowrap}
+.tag-ferramentas{background:#1f6f8b;color:#fff}
+.tag-diversos{background:#7c3aed;color:#fff}
+.price-ribbon{display:flex;align-items:baseline;gap:8px;padding:10px 14px 0;flex-wrap:wrap}
+.price-off{background:#ffb020;color:#2a1a00;font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:6px}
+.price-old{font-size:0.72rem;color:rgba(255,255,255,0.4);text-decoration:line-through}
+.price-new{font-size:1rem;color:#ffb020;font-weight:800}
+.offer-title{font-size:0.78rem;font-weight:600;padding:8px 14px 14px;line-height:1.4;color:rgba(255,255,255,0.85)}
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:18px;flex-wrap:wrap;max-width:260px;margin-left:auto;margin-right:auto}
+.carousel-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer;border:none;transition:all 0.25s;flex-shrink:0}
+.carousel-dot.active{background:#ffb020;width:20px;border-radius:4px}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.25);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+.carousel-btn:hover{background:rgba(255,176,32,0.35)}
+.carousel-btn-prev{left:8px}
+.carousel-btn-next{right:8px}
+.stores-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.store-chip{background:#141320;border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:8px 16px;font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.8)}
+.store-chip-soon{background:transparent;border:1px dashed rgba(255,255,255,0.18);border-radius:100px;padding:8px 16px;font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.4)}
+.stores-note{text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:14px}
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feat-card{background:#141320;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px 16px}
+.feat-icon{font-size:1.8rem;margin-bottom:10px}
+.feat-title{font-size:0.88rem;font-weight:700;margin-bottom:6px}
+.feat-desc{font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.5}
+.gender-section{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.gender-card{padding:28px 16px;text-align:center;position:relative;background:#141320;border:1px solid rgba(255,255,255,0.1);border-radius:16px}
+.gender-card img{width:56px;height:56px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:2px solid rgba(255,255,255,0.2)}
+.gender-label{font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.gender-label-masc{color:#5ec8d8}
+.gender-label-fem{color:#a78bfa}
+.gender-title{font-size:0.85rem;font-weight:700;line-height:1.3;margin-bottom:4px;color:#fff}
+.gender-tagline{font-size:0.68rem;color:rgba(255,255,255,0.5);margin-bottom:12px}
+.btn-gender-sm{display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border-radius:12px;font-size:0.68rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;width:100%;transition:transform 0.15s ease,box-shadow 0.15s ease}
+.btn-gender-sm-masc{background:#1f6f8b;color:#fff}
+.btn-gender-sm-fem{background:#7c3aed;color:#fff}
+.btn-gender-sm-masc:hover{transform:scale(1.04);box-shadow:0 6px 16px rgba(31,111,139,0.55)}
+.btn-gender-sm-fem:hover{transform:scale(1.04);box-shadow:0 6px 16px rgba(124,58,237,0.55)}
+.urgency-section{background:#141320;border:1px solid rgba(255,50,50,0.25);border-radius:16px;padding:32px 20px;text-align:center;position:relative;z-index:1;margin:0 20px 32px}
+.urgency-badge{display:inline-block;background:rgba(255,50,50,0.15);border:1px solid rgba(255,50,50,0.4);color:#ff6b6b;font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:100px;margin-bottom:14px}
+.urgency-title{font-size:clamp(1.1rem,4vw,1.5rem);font-weight:800;margin-bottom:20px;line-height:1.25}
+.trust-line{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.trust-line span{color:rgba(255,255,255,0.75);font-weight:600}
+footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.how-steps{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto}
+.how-step{display:flex;gap:14px;align-items:flex-start;background:#141320;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px}
+.how-num{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:rgba(255,176,32,0.15);border:1px solid rgba(255,176,32,0.4);color:#ffb020;font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center}
+.how-title{font-size:0.85rem;font-weight:700;margin-bottom:3px}
+.how-desc{font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.5}
+.chat-mock{max-width:300px;margin:24px auto 0;background:#0f0e17;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px}
+.chat-mock-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:0.72rem;color:rgba(255,255,255,0.5)}
+.chat-bubble{background:#1f2c1f;border:1px solid rgba(0,255,136,0.15);border-radius:4px 14px 14px 14px;padding:8px;font-size:0.72rem;line-height:1.5;color:rgba(255,255,255,0.85)}
+.chat-bubble img{width:100%;border-radius:8px;display:block;margin-bottom:8px}
+.chat-bubble .chat-text{padding:0 4px}
+.chat-bubble b{color:#ffb020}
+.chat-bubble .chat-time{display:block;text-align:right;font-size:0.62rem;color:rgba(255,255,255,0.35);margin-top:4px}
+.faq-list{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:#141320;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:4px 16px}
+.faq-item summary{cursor:pointer;padding:14px 0;font-size:0.82rem;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';color:#ffb020;font-size:1.1rem;flex-shrink:0}
+.faq-item[open] summary::after{content:'–'}
+.faq-item p{font-size:0.76rem;color:rgba(255,255,255,0.55);line-height:1.6;padding-bottom:14px}
+.fab-wrap{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:50}
+.fab-btn{width:58px;height:58px;border-radius:50%;background:#ffb020;color:#1a1200;border:none;font-size:1.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(255,176,32,0.45);transition:transform 0.2s ease}
+.fab-btn:active{transform:scale(0.94)}
+.fab-menu{position:absolute;right:0;bottom:76px;display:none;flex-direction:column;gap:10px;width:min(84vw,290px)}
+.fab-menu.open{display:flex}
+.fab-menu-head{display:flex;align-items:center;justify-content:center}
+.fab-menu-head span{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#fff;background:#141320;border:1px solid rgba(255,176,32,0.35);padding:6px 14px;border-radius:100px;box-shadow:0 6px 16px rgba(0,0,0,0.5)}
+.fab-option{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;text-decoration:none;color:#fff;background:#181725;border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 24px rgba(0,0,0,0.45);animation:fabIn 0.32s cubic-bezier(0.22,1,0.36,1) both;position:relative;overflow:hidden}
+.fab-option::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.fab-option.fab-masc::before{background:#1f6f8b}
+.fab-option.fab-fem::before{background:#7c3aed}
+.fab-option:nth-child(2){animation-delay:0.06s}
+.fab-option img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,0.15)}
+.fab-option-text{flex:1;min-width:0}
+.fab-option-eyebrow{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:2px}
+.fab-option.fab-masc .fab-option-eyebrow{color:#5ec8d8}
+.fab-option.fab-fem .fab-option-eyebrow{color:#a78bfa}
+.fab-option-title{font-size:0.82rem;font-weight:800;line-height:1.2}
+.fab-option-sub{font-size:0.66rem;color:rgba(255,255,255,0.5);margin-top:2px}
+.fab-option-arrow{font-size:1.1rem;color:rgba(255,255,255,0.35);flex-shrink:0}
+.fab-option:active{transform:scale(0.97)}
+.fab-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(2px);z-index:40;display:none}
+.fab-backdrop.open{display:block}
+@keyframes fabIn{from{opacity:0;transform:translateY(14px) scale(0.92)}to{opacity:1;transform:translateY(0) scale(1)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(0.22,1,0.36,1),transform .7s cubic-bezier(0.22,1,0.36,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.offer-card{transition:transform .15s ease}
+.offer-card:active{transform:scale(0.97)}
+.feat-card,.how-step,.faq-item,.store-chip{transition:transform .15s ease}
+.feat-card:active,.how-step:active,.store-chip:active{transform:scale(0.97)}
+.price-off{animation:priceOffPulse 2.2s ease-in-out infinite}
+@keyframes priceOffPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,176,32,0.5)}50%{box-shadow:0 0 0 5px rgba(255,176,32,0)}}
+.fab-btn{position:relative}
+.fab-btn::after{content:'';position:absolute;inset:0;border-radius:50%;background:#ffb020;opacity:0.55;animation:fabPing 2.4s cubic-bezier(0.4,0,0.6,1) infinite;z-index:-1}
+.fab-wrap.fab-is-open .fab-btn::after{animation:none;opacity:0}
+@keyframes fabPing{0%{transform:scale(1);opacity:0.55}75%,100%{transform:scale(1.7);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="badge badge-red">🔥 Vagas Limitadas</span>
+    <span class="badge badge-green">✅ Grupo 100% Gratuito</span>
+    <span class="badge badge-blue">⚡ Até 70% OFF</span>
+    <span class="badge badge-green">📦 ML • Shopee • Amazon • Netshoes • Magalu</span>
+    <span class="badge badge-blue">🕒 Ofertas Todo Dia</span>
+    <span class="badge badge-red">🚫 Sem Spam</span>
+    <span class="badge badge-blue">⚡ Ofertas Relâmpago</span>
+    <span class="badge badge-green">🎟️ Cupom Aplicado</span>
+    <span class="badge badge-red">🔥 50% OFF</span>
+    <span class="badge badge-red">🔥 Vagas Limitadas</span>
+    <span class="badge badge-green">✅ Grupo 100% Gratuito</span>
+    <span class="badge badge-blue">⚡ Até 70% OFF</span>
+    <span class="badge badge-green">📦 ML • Shopee • Amazon • Netshoes • Magalu</span>
+    <span class="badge badge-blue">🕒 Ofertas Todo Dia</span>
+    <span class="badge badge-red">🚫 Sem Spam</span>
+    <span class="badge badge-blue">⚡ Ofertas Relâmpago</span>
+    <span class="badge badge-green">🎟️ Cupom Aplicado</span>
+    <span class="badge badge-red">🔥 50% OFF</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="eyebrow"><span class="pulse-dot"></span>Grupos de Garimpo</div>
+  <h1>As melhores promoções da internet em um só lugar</h1>
+  <p class="hero-sub">Ofertas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, garimpadas e verificadas todos os dias — direto no seu WhatsApp.</p>
+  <div class="hero-logos">
+    <img decoding="async" src="img/1a3fa39504.jpg" alt="Logo grupo Ferramentas">
+    <img decoding="async" src="img/34563b1796.jpg" alt="Logo grupo Ofertas Gerais">
+  </div>
+  <div class="gender-ctas" id="main-ctas">
+    <a class="btn-gender btn-masc" href="https://chat.whatsapp.com/Hcm37qIXtdWCNid8Hg0MRF" target="_blank" rel="noopener">
+      <span class="btn-icon">🔧</span> Entrar — Ferramentas Descontos &amp; Cia
+    </a>
+    <a class="btn-gender btn-fem" href="https://chat.whatsapp.com/BpktXF5CMgQC6Gzw45DAoA" target="_blank" rel="noopener">
+      <span class="btn-icon">🛍️</span> Entrar — Ester Garimpou #10
+    </a>
+  </div>
+  <p class="social-proof">👥 Já são <span class="count-up" data-target="2500" data-prefix="+" data-suffix=" pessoas">+0 pessoas</span> nos dois grupos economizando junto</p>
+  <p class="social-proof" style="margin-top:6px">📦 Mais de <span class="count-up" data-target="50" data-suffix=" mil ofertas">0 mil ofertas</span> garimpadas e enviadas ao longo do tempo</p>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal">
+  <p class="section-label">Do jeito certo</p>
+  <h2 class="section-title">Como garimpamos suas ofertas</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div>
+        <p class="how-title">🔎 Garimpamos</p>
+        <p class="how-desc">Vasculhamos milhares de anúncios por dia em Mercado Livre, Shopee, Amazon, Netshoes e Magalu.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div>
+        <p class="how-title">✅ Conferimos</p>
+        <p class="how-desc">Nota mínima 4.7 e desconto real — oferta furada ou anúncio suspeito nem entra na fila.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div>
+        <p class="how-title">📲 Postamos verificado</p>
+        <p class="how-desc">Cada oferta sai no grupo com selo de verificado, imagem e link direto pro produto.</p>
+      </div>
+    </div>
+  </div>
+  <div class="chat-mock">
+    <p class="chat-mock-head">💬 Assim chega no seu WhatsApp</p>
+    <div class="chat-bubble">
+      <img decoding="async" src="img/2f0b730666.jpg" alt="Tênis Kappa Pulse Supra Masculino Feminino" loading="lazy">
+      <div class="chat-text">
+        ⚡ <b>OFERTA RELÂMPAGO</b> ⚡<br>
+        👟 Tênis Kappa Pulse Supra Masculino Feminino<br>
+        De: ~R$ 259,99~ Por: <b>R$ 145,90</b> -44% de desconto<br>
+        💰 Você economiza R$ 114,09<br>
+        🚚 Frete grátis — Entrega Full<br>
+        🔥 Link válido por 24h ou enquanto durar o estoque<br>
+        🔗 Link do produto — Mercado Livre
+        <span class="chat-time">19:53</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal">
+  <p class="section-label">Direto da fila</p>
+  <h2 class="section-title">Ofertas reais que já saíram nos grupos</h2>
+  <div class="carousel-wrap" id="carousel" ontouchstart="touchStartX=event.touches[0].clientX" ontouchend="handleSwipe(event)">
+    <button class="carousel-btn carousel-btn-prev" onclick="moveCarousel(-1)">&#8592;</button>
+    <button class="carousel-btn carousel-btn-next" onclick="moveCarousel(1)">&#8594;</button>
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
+          <img decoding="async" src="img/a7f79b996b.jpg" alt="Parafusadeira Furadeira Impacto Sem Fio 2 Bateri…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-77%</span>
+            <span class="price-old">R$ 499,99</span>
+            <span class="price-new">R$ 116,99</span>
+          </div>
+          <p class="offer-title">Parafusadeira Furadeira Impacto Sem Fio 2 Bateri…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">🏠 Casa</span>
+          <img decoding="async" src="img/5f3226b592.jpg" alt="Cozinha Completa de Canto Madesa Agata 399001 co…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-38%</span>
+            <span class="price-old">R$ 1.299,90</span>
+            <span class="price-new">R$ 799,90</span>
+          </div>
+          <p class="offer-title">Cozinha Completa de Canto Madesa Agata 399001 co…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
+          <img decoding="async" src="img/4f726d5889.jpg" alt="Kit Jogo Ferramentas 169 Peças Soquetes + Parafu…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-42%</span>
+            <span class="price-old">R$ 364,54</span>
+            <span class="price-new">R$ 209,90</span>
+          </div>
+          <p class="offer-title">Kit Jogo Ferramentas 169 Peças Soquetes + Parafu…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">🏠 Casa</span>
+          <img decoding="async" src="img/238f809471.jpg" alt="DAGUAN Escorredor de Pia Torneira Escorredor de…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-50%</span>
+            <span class="price-old">R$ 79,90</span>
+            <span class="price-new">R$ 39,90</span>
+          </div>
+          <p class="offer-title">DAGUAN Escorredor de Pia Torneira Escorredor de…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
+          <img decoding="async" src="img/6e3d2fed7f.jpg" alt="Martelete Rompedor Furadeira De Impacto Allmind…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-40%</span>
+            <span class="price-old">R$ 549,90</span>
+            <span class="price-new">R$ 329,90</span>
+          </div>
+          <p class="offer-title">Martelete Rompedor Furadeira De Impacto Allmind…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">🌸 Perfumes</span>
+          <img decoding="async" src="img/6648a2b139.jpg" alt="Perfume Outside Vanille - Le botanic - Alta Fixa…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-47%</span>
+            <span class="price-old">R$ 189,90</span>
+            <span class="price-new">R$ 99,90</span>
+          </div>
+          <p class="offer-title">Perfume Outside Vanille - Le botanic - Alta Fixa…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
+          <img decoding="async" src="img/8a7843367c.jpg" alt="Kit Maleta Estojo Ferramentas 9 Peças Martelo Al…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-44%</span>
+            <span class="price-old">R$ 89,90</span>
+            <span class="price-new">R$ 49,90</span>
+          </div>
+          <p class="offer-title">Kit Maleta Estojo Ferramentas 9 Peças Martelo Al…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">🌸 Perfumes</span>
+          <img decoding="async" src="img/cac957b38b.jpg" alt="Perfume Arabe Special Oud Al Wataniah Masculino…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-47%</span>
+            <span class="price-old">R$ 149,90</span>
+            <span class="price-new">R$ 79,90</span>
+          </div>
+          <p class="offer-title">Perfume Arabe Special Oud Al Wataniah Masculino…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🧱 Construção</span>
+          <img decoding="async" src="img/7743e55a24.jpg" alt="Tinta Emborrachada Premium 3.6kg ou 1kg Impermea…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-38%</span>
+            <span class="price-old">R$ 129,90</span>
+            <span class="price-new">R$ 79,90</span>
+          </div>
+          <p class="offer-title">Tinta Emborrachada Premium 3.6kg ou 1kg Impermea…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">🔌 Eletrônicos</span>
+          <img decoding="async" src="img/23ad1e3180.jpg" alt="Projetor HY300 Bivolt 4K com Wi-fi e Bluetooth c…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-42%</span>
+            <span class="price-old">R$ 449,90</span>
+            <span class="price-new">R$ 259,90</span>
+          </div>
+          <p class="offer-title">Projetor HY300 Bivolt 4K com Wi-fi e Bluetooth c…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🧱 Construção</span>
+          <img decoding="async" src="img/ab1e628a40.jpg" alt="Torneira Elétrica Zagonel Prima Touch Parede E B…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-39%</span>
+            <span class="price-old">R$ 229,90</span>
+            <span class="price-new">R$ 139,90</span>
+          </div>
+          <p class="offer-title">Torneira Elétrica Zagonel Prima Touch Parede E B…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">🔌 Eletrônicos</span>
+          <img decoding="async" src="img/1a26bc6221.jpg" alt="Secador Duo Maxx Bivolt (2000W) – Lizz Pro" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-40%</span>
+            <span class="price-old">R$ 149,90</span>
+            <span class="price-new">R$ 89,90</span>
+          </div>
+          <p class="offer-title">Secador Duo Maxx Bivolt (2000W) – Lizz Pro</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🔌 Eletrônicos</span>
+          <img decoding="async" src="img/5251b38d3e.jpg" alt="Interruptor Smart Inteligente Wi-fi 2.4 Ghz Alex…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-43%</span>
+            <span class="price-old">R$ 69,90</span>
+            <span class="price-new">R$ 39,90</span>
+          </div>
+          <p class="offer-title">Interruptor Smart Inteligente Wi-fi 2.4 Ghz Alex…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">👟 Calçados</span>
+          <img decoding="async" src="img/2f0b730666.jpg" alt="Tênis Kappa Pulse Supra Masculino Feminino" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-44%</span>
+            <span class="price-old">R$ 259,99</span>
+            <span class="price-new">R$ 145,90</span>
+          </div>
+          <p class="offer-title">Tênis Kappa Pulse Supra Masculino Feminino</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-ferramentas">🔌 Eletrônicos</span>
+          <img decoding="async" src="img/d6b8f140cb.jpg" alt="Smartwatch QCY GT S8 Bluetooth, Para Corrida e T…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-40%</span>
+            <span class="price-old">R$ 199,90</span>
+            <span class="price-new">R$ 119,90</span>
+          </div>
+          <p class="offer-title">Smartwatch QCY GT S8 Bluetooth, Para Corrida e T…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">👟 Calçados</span>
+          <img decoding="async" src="img/090dbccb3a.jpg" alt="Kit 2 Pares Tenis Masculino Original Confortavel…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-46%</span>
+            <span class="price-old">R$ 129,90</span>
+            <span class="price-new">R$ 69,90</span>
+          </div>
+          <p class="offer-title">Kit 2 Pares Tenis Masculino Original Confortavel…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">👕 Roupas</span>
+          <img decoding="async" src="img/470aee495e.jpg" alt="CONJUNTO FEMININO SHORTS + COLETE NOVA TENDENCIA…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-40%</span>
+            <span class="price-old">R$ 99,90</span>
+            <span class="price-new">R$ 59,90</span>
+          </div>
+          <p class="offer-title">CONJUNTO FEMININO SHORTS + COLETE NOVA TENDENCIA…</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="offer-card">
+          <span class="offer-tag tag-diversos">👕 Roupas</span>
+          <img decoding="async" src="img/599e1251c5.jpg" alt="Conjunto Feminino de Academia Calça Legging + To…" loading="lazy">
+          <div class="price-ribbon">
+            <span class="price-off">-41%</span>
+            <span class="price-old">R$ 109,90</span>
+            <span class="price-new">R$ 64,90</span>
+          </div>
+          <p class="offer-title">Conjunto Feminino de Academia Calça Legging + To…</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-nav">
+    <button class="carousel-dot active" onclick="goToSlide(0)"></button> <button class="carousel-dot" onclick="goToSlide(1)"></button> <button class="carousel-dot" onclick="goToSlide(2)"></button> <button class="carousel-dot" onclick="goToSlide(3)"></button> <button class="carousel-dot" onclick="goToSlide(4)"></button> <button class="carousel-dot" onclick="goToSlide(5)"></button> <button class="carousel-dot" onclick="goToSlide(6)"></button> <button class="carousel-dot" onclick="goToSlide(7)"></button> <button class="carousel-dot" onclick="goToSlide(8)"></button> <button class="carousel-dot" onclick="goToSlide(9)"></button> <button class="carousel-dot" onclick="goToSlide(10)"></button> <button class="carousel-dot" onclick="goToSlide(11)"></button> <button class="carousel-dot" onclick="goToSlide(12)"></button> <button class="carousel-dot" onclick="goToSlide(13)"></button> <button class="carousel-dot" onclick="goToSlide(14)"></button> <button class="carousel-dot" onclick="goToSlide(15)"></button> <button class="carousel-dot" onclick="goToSlide(16)"></button> <button class="carousel-dot" onclick="goToSlide(17)"></button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal">
+  <p class="section-label">Onde garimpamos</p>
+  <h2 class="section-title">Promoções das maiores lojas</h2>
+  <div class="stores-grid">
+    <span class="store-chip">🟡 Mercado Livre</span>
+    <span class="store-chip">📦 Shopee</span>
+    <span class="store-chip">🛒 Amazon</span>
+    <span class="store-chip">👟 Netshoes</span>
+    <span class="store-chip">💻 Magalu</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal">
+  <p class="section-label">Escolha o seu tema</p>
+  <h2 class="section-title">Qual grupo é o seu?</h2>
+  <div class="gender-section">
+    <div class="gender-card gender-card-masc">
+      <img decoding="async" src="img/1a3fa39504.jpg" alt="Logo Ferramentas Descontos &amp; Cia" loading="lazy">
+      <p class="gender-label gender-label-masc">Ferramentas</p>
+      <p class="gender-title">Ferramentas Descontos &amp; Cia</p>
+      <p class="gender-tagline">Ferramentas, materiais de construção e eletrônicos</p>
+      <a class="btn-gender-sm btn-gender-sm-masc" href="https://chat.whatsapp.com/Hcm37qIXtdWCNid8Hg0MRF" target="_blank" rel="noopener">Entrar Agora</a>
+    </div>
+    <div class="gender-card gender-card-fem">
+      <img decoding="async" src="img/34563b1796.jpg" alt="Logo Ester Garimpou #10" loading="lazy">
+      <p class="gender-label gender-label-fem">Ofertas Gerais</p>
+      <p class="gender-title">Ester Garimpou #10</p>
+      <p class="gender-tagline">Casa, perfumes, eletrônicos, calçados, roupas e muito mais</p>
+      <a class="btn-gender-sm btn-gender-sm-fem" href="https://chat.whatsapp.com/BpktXF5CMgQC6Gzw45DAoA" target="_blank" rel="noopener">Entrar Agora</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal">
+  <p class="section-label">O que você encontra</p>
+  <h2 class="section-title">Por que entrar agora?</h2>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon">🎯</div><div class="feat-title">Ofertas Selecionadas</div><div class="feat-desc">Nota mínima 4.7 e desconto real — sem enche-linguiça.</div></div>
+    <div class="feat-card"><div class="feat-icon">✅</div><div class="feat-title">Link Verificado</div><div class="feat-desc">Cada post sai com selo de verificado e marca do grupo na imagem.</div></div>
+    <div class="feat-card"><div class="feat-icon">🔒</div><div class="feat-title">Sem Spam</div><div class="feat-desc">Só ofertas — lote diário, sem mandar mensagem toda hora.</div></div>
+    <div class="feat-card"><div class="feat-icon">🕒</div><div class="feat-title">Todo dia</div><div class="feat-desc">Novo lote de ofertas garimpadas chega todos os dias.</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal">
+  <p class="section-label">Ficou com dúvida?</p>
+  <h2 class="section-title">Perguntas frequentes</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>O grupo é realmente gratuito?</summary>
+      <p>Sim, 100% grátis. Não tem mensalidade nem taxa de entrada, nunca.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Vou receber spam ou mensagem toda hora?</summary>
+      <p>Não. Só postamos as ofertas garimpadas em lotes ao longo do dia — sem corrente, sem mensagem aleatória de outros membros.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Como saio do grupo se eu quiser?</summary>
+      <p>A qualquer momento, direto pelo próprio WhatsApp — abra o grupo, toque em Sair e pronto.</p>
+    </details>
+    <details class="faq-item">
+      <summary>As ofertas e os links são de verdade?</summary>
+      <p>Sim. Cada oferta é conferida antes de ser postada e sai com selo de verificado e link direto pro produto na loja oficial.</p>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="urgency-section reveal">
+  <div class="urgency-badge">⚠️ Vagas Limitadas</div>
+  <h2 class="urgency-title">Entre agora e comece a economizar hoje</h2>
+  <div class="gender-ctas" style="margin-bottom:0">
+    <a class="btn-gender btn-masc" href="https://chat.whatsapp.com/Hcm37qIXtdWCNid8Hg0MRF" target="_blank" rel="noopener">
+      <span class="btn-icon">🔧</span> Quero Entrar — Ferramentas Descontos &amp; Cia
+    </a>
+    <a class="btn-gender btn-fem" href="https://chat.whatsapp.com/BpktXF5CMgQC6Gzw45DAoA" target="_blank" rel="noopener">
+      <span class="btn-icon">🛍️</span> Quero Entrar — Ester Garimpou #10
+    </a>
+  </div>
+  <div class="trust-line">
+    <span>✅ Gratuito</span>
+    <span>🚫 Sem spam</span>
+    <span>🔥 Só ofertas que valem a pena</span>
+  </div>
+</div>
+
+<footer>Garimpo de Ofertas — conteúdo e links de afiliado. Grupos administrados via WhatsApp.</footer>
+
+<div class="fab-backdrop" id="fabBackdrop" onclick="toggleFab(false)"></div>
+<div class="fab-wrap">
+  <div class="fab-menu" id="fabMenu">
+    <div class="fab-menu-head"><span>🔥 Escolha seu grupo</span></div>
+    <a class="fab-option fab-masc" href="https://chat.whatsapp.com/Hcm37qIXtdWCNid8Hg0MRF" target="_blank" rel="noopener">
+      <img decoding="async" src="img/1a3fa39504.jpg" alt="Logo Ferramentas Descontos &amp; Cia">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">🔧 Ferramentas</p>
+        <p class="fab-option-title">Ferramentas Descontos &amp; Cia</p>
+        <p class="fab-option-sub">Ferramentas, construção e eletrônicos</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-fem" href="https://chat.whatsapp.com/BpktXF5CMgQC6Gzw45DAoA" target="_blank" rel="noopener">
+      <img decoding="async" src="img/34563b1796.jpg" alt="Logo Ester Garimpou #10">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">🛍️ Ofertas Gerais</p>
+        <p class="fab-option-title">Ester Garimpou #10</p>
+        <p class="fab-option-sub">Casa, perfumes, calçados e mais</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+  </div>
+  <button class="fab-btn" id="fabBtn" onclick="toggleFab()" aria-label="Entrar nos grupos">💬</button>
+</div>
+
+<script>
+var current = 0;
+var total = 18;
+var autoTimer;
+var touchStartX = 0;
+
+function goToSlide(n) {
+  current = (n + total) % total;
+  document.getElementById('carouselTrack').style.transform = 'translateX(-' + (current * 100) + '%)';
+  document.querySelectorAll('.carousel-dot').forEach(function(dot, i) {
+    dot.classList.toggle('active', i === current);
+  });
+  resetAuto();
+}
+function moveCarousel(dir) { goToSlide(current + dir); }
+function handleSwipe(e) {
+  var dx = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 40) moveCarousel(dx > 0 ? 1 : -1);
+}
+function resetAuto() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(function() { moveCarousel(1); }, 3500);
+}
+resetAuto();
+
+var fabOpen = false;
+function toggleFab(force) {
+  fabOpen = typeof force === 'boolean' ? force : !fabOpen;
+  document.getElementById('fabMenu').classList.toggle('open', fabOpen);
+  document.getElementById('fabBackdrop').classList.toggle('open', fabOpen);
+  document.getElementById('fabBtn').textContent = fabOpen ? '✕' : '💬';
+  document.querySelector('.fab-wrap').classList.toggle('fab-is-open', fabOpen);
+}
+
+if ('IntersectionObserver' in window) {
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('in'); });
+}
+
+function animateCount(el) {
+  var target = parseFloat(el.dataset.target);
+  var prefix = el.dataset.prefix || '';
+  var suffix = el.dataset.suffix || '';
+  var duration = 1400;
+  var start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var current = Math.round(target * eased);
+    el.textContent = prefix + current.toLocaleString('pt-BR') + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); });
+</script>
+</body>
+</html>
