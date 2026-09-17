@@ -29,6 +29,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .badge-green{background:rgba(255,176,32,0.12);border:1px solid rgba(0,255,136,0.4);color:#ffb020}
 .badge-blue{background:rgba(0,170,255,0.12);border:1px solid rgba(0,170,255,0.4);color:#5ec8d8}
 .hero{position:relative;z-index:1;padding:28px 20px 32px;text-align:center}
+.hero::before{content:'';position:absolute;top:-140px;left:50%;width:480px;height:480px;transform:translateX(-50%);background:radial-gradient(circle,rgba(255,176,32,0.22) 0%,transparent 68%);pointer-events:none;z-index:-1}
 .pulse-dot{display:inline-block;width:8px;height:8px;background:#ffb020;border-radius:50%;margin-right:8px;animation:pulse 1.8s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.6)}}
 .eyebrow{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#ffb020;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
