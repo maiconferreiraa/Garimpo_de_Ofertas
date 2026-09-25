@@ -154,6 +154,16 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .fab-btn::after{content:'';position:absolute;inset:0;border-radius:50%;background:#ffb020;opacity:0.55;animation:fabPing 2.4s cubic-bezier(0.4,0,0.6,1) infinite;z-index:-1}
 .fab-wrap.fab-is-open .fab-btn::after{animation:none;opacity:0}
 @keyframes fabPing{0%{transform:scale(1);opacity:0.55}75%,100%{transform:scale(1.7);opacity:0}}
+.vitrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;max-width:900px;margin:0 auto}
+.vitrine-grid .offer-card{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.vitrine-grid .offer-title{flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:6px}
+.vitrine-preco{padding:0 14px 6px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
+.vitrine-preco s{font-size:.72rem;color:rgba(255,255,255,.45)}
+.vitrine-preco b{font-size:1rem;color:#fff}
+.vitrine-preco em{font-style:normal;font-size:.68rem;font-weight:800;background:#ffb020;color:#111;padding:2px 7px;border-radius:100px}
+.vitrine-btn{margin:0 12px 12px;text-align:center;font-size:.78rem;font-weight:800;padding:9px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.vitrine-cta{text-align:center;margin-top:18px;font-size:.88rem;color:rgba(255,255,255,.7)}
+.vitrine-cta a{color:#ffb020;font-weight:700}
 </style>
 </head>
 <body>
@@ -199,6 +209,18 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   </div>
   <p class="social-proof">👥 Já são <span class="count-up" data-target="2500" data-prefix="+" data-suffix=" pessoas">+0 pessoas</span> nos dois grupos economizando junto</p>
   <p class="social-proof" style="margin-top:6px">📦 Mais de <span class="count-up" data-target="50" data-suffix=" mil ofertas">0 mil ofertas</span> garimpadas e enviadas ao longo do tempo</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- Vitrine: ofertas que acabaram de sair nos grupos, enviadas pelo robô
+     (robo_ml_afiliados → /api/vitrine). Fica escondida se não houver
+     nenhuma nas últimas 48h. -->
+<section class="section" id="vitrine" hidden>
+  <p class="section-label">Acabou de sair nos grupos</p>
+  <h2 class="section-title">🔥 Ofertas de hoje</h2>
+  <div class="vitrine-grid" id="vitrineGrid"></div>
+  <p class="vitrine-cta">Quer receber as próximas <b>antes</b>, direto no WhatsApp? <a href="#main-ctas">Entre no grupo</a> — é grátis.</p>
 </section>
 
 <div class="divider"></div>
@@ -667,6 +689,30 @@ function animateCount(el) {
   requestAnimationFrame(step);
 }
 document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); });
+</script>
+<script>
+// Vitrine — ofertas recentes vindas do robô. Qualquer falha só deixa a
+// seção escondida; o resto da página não depende disso.
+(async () => {
+  try {
+    const ofertas = await (await fetch('/api/vitrine')).json();
+    if (!Array.isArray(ofertas) || !ofertas.length) return;
+    const brl = (n) => 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    document.getElementById('vitrineGrid').innerHTML = ofertas.slice(0, 24).map((o) => {
+      const off = o.precoDe && o.precoDe > o.preco ? Math.round((1 - o.preco / o.precoDe) * 100) : 0;
+      const tag = o.categoria === 'ferramentas' ? '<span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>' : '<span class="offer-tag tag-diversos">🛍️ Ofertas</span>';
+      return `<a class="offer-card" href="${esc(o.link)}" target="_blank" rel="noopener sponsored">
+        ${tag}
+        ${o.imagem ? `<img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">` : ''}
+        <p class="offer-title">${esc(o.titulo)}</p>
+        <div class="vitrine-preco">${off ? `<s>${brl(o.precoDe)}</s>` : ''}<b>${brl(o.preco)}</b>${off ? `<em>-${off}%</em>` : ''}</div>
+        <span class="vitrine-btn">Ver oferta →</span>
+      </a>`;
+    }).join('');
+    document.getElementById('vitrine').hidden = false;
+  } catch {}
+})();
 </script>
 </body>
 </html>
