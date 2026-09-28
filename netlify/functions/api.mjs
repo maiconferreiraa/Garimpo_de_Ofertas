@@ -9,7 +9,9 @@ import { linksRastreados, cliques, vitrine, imagens, autorizado, json, contarCli
 //   POST /api/links              → registra links rastreados   [chave]
 //   POST /api/vitrine/oferta     → adiciona oferta na vitrine   [chave]
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
-const MAX_OFERTAS = 40;
+// Todas as ofertas das últimas 48h (o robô posta ~100/dia nas 2 categorias);
+// a página mostra em páginas de 8, passando pro lado.
+const MAX_OFERTAS = 400;
 const VALIDADE_OFERTA_MS = 48 * 60 * 60 * 1000;
 
 export default async (req) => {

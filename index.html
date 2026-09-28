@@ -164,6 +164,17 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .vitrine-btn{margin:0 12px 12px;text-align:center;font-size:.78rem;font-weight:800;padding:9px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
 .vitrine-cta{text-align:center;margin-top:18px;font-size:.88rem;color:rgba(255,255,255,.7)}
 .vitrine-cta a{color:#ffb020;font-weight:700}
+.vitrine-filtros{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 auto 14px}
+.vitrine-filtros button{font:inherit;font-size:.78rem;font-weight:700;color:rgba(255,255,255,.75);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:7px 14px;cursor:pointer}
+.vitrine-filtros button.ativo{background:#ffb020;border-color:#ffb020;color:#111}
+.vitrine-paginas{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;max-width:900px;margin:0 auto;-webkit-overflow-scrolling:touch}
+.vitrine-paginas::-webkit-scrollbar{display:none}
+.vitrine-paginas .vitrine-grid{flex:0 0 100%;scroll-snap-align:start;align-content:start;grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){.vitrine-paginas .vitrine-grid{grid-template-columns:repeat(4,1fr)}}
+.vitrine-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px}
+.vitrine-nav button{font:inherit;font-size:1.2rem;font-weight:800;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;cursor:pointer}
+.vitrine-nav button:disabled{opacity:.3;cursor:default}
+.vitrine-nav span{font-size:.82rem;color:rgba(255,255,255,.7);min-width:110px;text-align:center}
 .destaque{padding:22px 20px 8px}
 .destaque-card{max-width:440px;margin:0 auto;background:#141320;border:1px solid rgba(255,176,32,.45);border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(255,176,32,.12)}
 .destaque-card img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#fff}
@@ -246,7 +257,17 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 <section class="section" id="vitrine" hidden>
   <p class="section-label">Acabou de sair nos grupos</p>
   <h2 class="section-title">🔥 Ofertas de hoje</h2>
-  <div class="vitrine-grid" id="vitrineGrid"></div>
+  <div class="vitrine-filtros" id="vitrineFiltros">
+    <button type="button" data-cat="" class="ativo">Todas</button>
+    <button type="button" data-cat="ferramentas">🔧 Ferramentas</button>
+    <button type="button" data-cat="diversos">🛍️ Diversos</button>
+  </div>
+  <div class="vitrine-paginas" id="vitrinePaginas"></div>
+  <div class="vitrine-nav" id="vitrineNav">
+    <button type="button" id="vitrineAnt" aria-label="Página anterior">‹</button>
+    <span id="vitrinePag"></span>
+    <button type="button" id="vitrineProx" aria-label="Próxima página">›</button>
+  </div>
   <p class="vitrine-cta">Quer receber as próximas <b>antes</b>, direto no WhatsApp? <a href="#main-ctas">Entre no grupo</a> — é grátis.</p>
 </section>
 
@@ -726,17 +747,52 @@ document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); 
     if (!Array.isArray(ofertas) || !ofertas.length) return;
     const brl = (n) => 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    document.getElementById('vitrineGrid').innerHTML = ofertas.slice(0, 24).map((o) => {
-      const off = o.precoDe && o.precoDe > o.preco ? Math.round((1 - o.preco / o.precoDe) * 100) : 0;
-      const tag = o.categoria === 'ferramentas' ? '<span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>' : '<span class="offer-tag tag-diversos">🛍️ Ofertas</span>';
-      return `<a class="offer-card" href="${esc(o.link)}" target="_blank" rel="noopener sponsored">
-        ${tag}
-        ${o.imagem ? `<img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">` : ''}
-        <p class="offer-title">${esc(o.titulo)}</p>
-        <div class="vitrine-preco">${off ? `<s>${brl(o.precoDe)}</s>` : ''}<b>${brl(o.preco)}</b>${off ? `<em>-${off}%</em>` : ''}</div>
-        <span class="vitrine-btn">Ver oferta →</span>
-      </a>`;
-    }).join('');
+    // Todas as ofertas (as 2 categorias), 8 por página; arrasta pro lado ou
+    // usa as setas. Filtro por categoria no topo.
+    const POR_PAGINA = 8;
+    const cardHtml = (o) => {
+        const off = o.precoDe && o.precoDe > o.preco ? Math.round((1 - o.preco / o.precoDe) * 100) : 0;
+        const tag = o.categoria === 'ferramentas' ? '<span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>' : '<span class="offer-tag tag-diversos">🛍️ Ofertas</span>';
+        return `<a class="offer-card" href="${esc(o.link)}" target="_blank" rel="noopener sponsored">
+          ${tag}
+          ${o.imagem ? `<img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">` : ''}
+          <p class="offer-title">${esc(o.titulo)}</p>
+          <div class="vitrine-preco">${off ? `<s>${brl(o.precoDe)}</s>` : ''}<b>${brl(o.preco)}</b>${off ? `<em>-${off}%</em>` : ''}</div>
+          <span class="vitrine-btn">Ver oferta →</span>
+        </a>`;
+    };
+    const paginasEl = document.getElementById('vitrinePaginas');
+    const pagEl = document.getElementById('vitrinePag');
+    const ant = document.getElementById('vitrineAnt');
+    const prox = document.getElementById('vitrineProx');
+    let total = 1;
+    const atual = () => Math.round(paginasEl.scrollLeft / Math.max(1, paginasEl.clientWidth));
+    const atualizarNav = () => {
+      const p = Math.min(total - 1, atual());
+      pagEl.textContent = `Página ${p + 1} de ${total}`;
+      ant.disabled = p <= 0;
+      prox.disabled = p >= total - 1;
+    };
+    const montar = (cat) => {
+      const lista = cat ? ofertas.filter((o) => o.categoria === cat) : ofertas;
+      const paginas = [];
+      for (let i = 0; i < lista.length; i += POR_PAGINA) paginas.push(lista.slice(i, i + POR_PAGINA));
+      total = Math.max(1, paginas.length);
+      paginasEl.innerHTML = paginas.map((pg) => `<div class="vitrine-grid">${pg.map(cardHtml).join('')}</div>`).join('')
+        || '<p class="vitrine-cta">Nenhuma oferta dessa categoria agora.</p>';
+      paginasEl.scrollLeft = 0;
+      document.getElementById('vitrineNav').style.display = total > 1 ? '' : 'none';
+      atualizarNav();
+    };
+    const irPara = (p) => paginasEl.scrollTo({ left: p * paginasEl.clientWidth, behavior: 'smooth' });
+    ant.addEventListener('click', () => irPara(atual() - 1));
+    prox.addEventListener('click', () => irPara(atual() + 1));
+    paginasEl.addEventListener('scroll', () => requestAnimationFrame(atualizarNav), { passive: true });
+    document.querySelectorAll('#vitrineFiltros button').forEach((b) => b.addEventListener('click', () => {
+      document.querySelectorAll('#vitrineFiltros button').forEach((x) => x.classList.toggle('ativo', x === b));
+      montar(b.dataset.cat);
+    }));
+    montar('');
     document.getElementById('vitrine').hidden = false;
   } catch {}
 })();
