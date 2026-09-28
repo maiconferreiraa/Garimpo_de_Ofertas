@@ -768,5 +768,30 @@ document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); 
   } catch {}
 })();
 </script>
+<script>
+// Origem da visita (?c=compartilhe = mensagem de compartilhar nos grupos):
+// conta a visita 1x por visitante e marca os botões "Entrar no grupo"
+// (/r/grupo-*?o=<origem>) pra saber quem entrou por esse caminho.
+(() => {
+  let origem = null;
+  try {
+    const c = new URLSearchParams(location.search).get('c');
+    if (c && /^[a-z0-9-]{1,20}$/.test(c)) {
+      origem = c;
+      localStorage.setItem('origem', c);
+      if (!localStorage.getItem('visita-' + c)) {
+        localStorage.setItem('visita-' + c, '1');
+        fetch('/api/visita', { method: 'POST', body: JSON.stringify({ origem: c }), keepalive: true }).catch(() => {});
+      }
+    } else {
+      origem = localStorage.getItem('origem');
+    }
+  } catch {}
+  if (!origem) return;
+  document.querySelectorAll('a[href^="/r/grupo-"]').forEach((a) => {
+    a.href = a.getAttribute('href').split('?')[0] + '?o=' + encodeURIComponent(origem);
+  });
+})();
+</script>
 </body>
 </html>

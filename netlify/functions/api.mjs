@@ -1,10 +1,11 @@
-import { linksRastreados, cliques, vitrine, imagens, autorizado, json } from '../lib/comum.mjs';
+import { linksRastreados, cliques, vitrine, imagens, autorizado, json, contarClique } from '../lib/comum.mjs';
 
 // API usada pelo robô (escrita, com chave) e pela própria página (leitura
 // pública da vitrine):
 //   GET  /api/saude              → { ok: true }
 //   GET  /api/vitrine            → ofertas recentes (público)
 //   GET  /api/oferta/<id>        → uma oferta, pra página /o/<id> (público)
+//   POST /api/visita             → conta visita vinda de uma origem (público)
 //   POST /api/links              → registra links rastreados   [chave]
 //   POST /api/vitrine/oferta     → adiciona oferta na vitrine   [chave]
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
@@ -33,6 +34,16 @@ export default async (req) => {
       || ((await store.get('ofertas', { type: 'json' })) || []).find((o) => o.id === mOferta[1]);
     if (!oferta) return json({ erro: 'oferta não encontrada' }, 404);
     return json(oferta, 200, { 'cache-control': 'public, max-age=300' });
+  }
+
+  // Visita que chegou por um link com origem (?c=compartilhe) — a página
+  // manda 1x por visitante. Fica em "visita-<origem>" junto dos cliques.
+  if (rota === 'POST /api/visita') {
+    try {
+      const { origem } = await req.json();
+      if (/^[a-z0-9-]{1,20}$/.test(origem || '')) await contarClique(`visita-${origem}`);
+    } catch {}
+    return json({ ok: true });
   }
 
   if (!(await autorizado(req))) return json({ erro: 'não autorizado' }, 401);

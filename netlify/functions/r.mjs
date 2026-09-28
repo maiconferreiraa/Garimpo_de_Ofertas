@@ -1,4 +1,4 @@
-import { linksRastreados, cliques, agoraBrasil } from '../lib/comum.mjs';
+import { linksRastreados, contarClique } from '../lib/comum.mjs';
 
 // Link rastreado dos posts: /r/<id> → conta o clique e manda pro link de
 // afiliado de verdade (302). Id desconhecido cai na página inicial, nunca
@@ -12,13 +12,11 @@ export default async (req, context) => {
 
   if (!ROBOS.test(req.headers.get('user-agent') || '')) {
     try {
-      const { dia, hora } = agoraBrasil();
-      const store = cliques();
-      const atual = (await store.get(id, { type: 'json' })) || { total: 0, dias: {}, horas: {} };
-      atual.total += 1;
-      atual.dias[dia] = (atual.dias[dia] || 0) + 1;
-      atual.horas[hora] = (atual.horas[hora] || 0) + 1;
-      await store.setJSON(id, atual);
+      await contarClique(id);
+      // ?o=<origem>: de onde a pessoa veio (ex.: "compartilhe", a mensagem
+      // de compartilhar nos grupos) — contado à parte em "<id>~<origem>".
+      const origem = new URL(req.url).searchParams.get('o');
+      if (origem && /^[a-z0-9-]{1,20}$/.test(origem)) await contarClique(`${id}~${origem}`);
     } catch {
       // contar é secundário — o redirecionamento nunca pode falhar por isso
     }
@@ -27,3 +25,4 @@ export default async (req, context) => {
 };
 
 export const config = { path: '/r/:id' };
+

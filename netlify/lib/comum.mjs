@@ -37,3 +37,14 @@ export function agoraBrasil() {
   );
   return { dia: `${partes.year}-${partes.month}-${partes.day}`, hora: partes.hour };
 }
+
+// Soma 1 clique/visita na chave (total, por dia e por hora de Brasília).
+export async function contarClique(chave) {
+  const { dia, hora } = agoraBrasil();
+  const store = cliques();
+  const atual = (await store.get(chave, { type: 'json' })) || { total: 0, dias: {}, horas: {} };
+  atual.total += 1;
+  atual.dias[dia] = (atual.dias[dia] || 0) + 1;
+  atual.horas[hora] = (atual.horas[hora] || 0) + 1;
+  await store.setJSON(chave, atual);
+}
