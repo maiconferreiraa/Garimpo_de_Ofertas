@@ -169,8 +169,8 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .vitrine-filtros button.ativo{background:#ffb020;border-color:#ffb020;color:#111}
 .vitrine-paginas{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;max-width:900px;margin:0 auto;-webkit-overflow-scrolling:touch}
 .vitrine-paginas::-webkit-scrollbar{display:none}
-.vitrine-paginas .vitrine-grid{flex:0 0 100%;scroll-snap-align:start;align-content:start;grid-template-columns:repeat(2,1fr)}
-@media(min-width:640px){.vitrine-paginas .vitrine-grid{grid-template-columns:repeat(4,1fr)}}
+.vitrine-paginas .vitrine-grid{flex:0 0 100%;min-width:0;scroll-snap-align:start;align-content:start;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:640px){.vitrine-paginas .vitrine-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .vitrine-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px}
 .vitrine-nav button{font:inherit;font-size:1.2rem;font-weight:800;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;cursor:pointer}
 .vitrine-nav button:disabled{opacity:.3;cursor:default}
