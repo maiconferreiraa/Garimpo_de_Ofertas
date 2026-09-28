@@ -4,6 +4,7 @@ import { linksRastreados, cliques, vitrine, imagens, autorizado, json } from '..
 // pública da vitrine):
 //   GET  /api/saude              → { ok: true }
 //   GET  /api/vitrine            → ofertas recentes (público)
+//   GET  /api/oferta/<id>        → uma oferta, pra página /o/<id> (público)
 //   POST /api/links              → registra links rastreados   [chave]
 //   POST /api/vitrine/oferta     → adiciona oferta na vitrine   [chave]
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
@@ -20,6 +21,18 @@ export default async (req) => {
     const lista = (await vitrine().get('ofertas', { type: 'json' })) || [];
     const limite = Date.now() - VALIDADE_OFERTA_MS;
     return json(lista.filter((o) => o.publicadoEm >= limite), 200, { 'cache-control': 'public, max-age=60' });
+  }
+
+  // Página de uma oferta só (/o/<id>, link do status do WhatsApp). Cada
+  // oferta fica guardada também avulsa ("o-<id>"), porque a lista só tem
+  // as 40 mais recentes e o robô posta bem mais que isso por dia.
+  const mOferta = pathname.match(/^\/api\/oferta\/([a-f0-9]{12})\/?$/);
+  if (req.method === 'GET' && mOferta) {
+    const store = vitrine();
+    const oferta = (await store.get(`o-${mOferta[1]}`, { type: 'json' }))
+      || ((await store.get('ofertas', { type: 'json' })) || []).find((o) => o.id === mOferta[1]);
+    if (!oferta) return json({ erro: 'oferta não encontrada' }, 404);
+    return json(oferta, 200, { 'cache-control': 'public, max-age=300' });
   }
 
   if (!(await autorizado(req))) return json({ erro: 'não autorizado' }, 401);
@@ -44,6 +57,7 @@ export default async (req) => {
     const store = vitrine();
     const lista = ((await store.get('ofertas', { type: 'json' })) || []).filter((o) => o.id !== oferta.id);
     lista.unshift({ ...oferta, publicadoEm: Date.now() });
+    await store.setJSON(`o-${oferta.id}`, { ...oferta, publicadoEm: Date.now() });
     await store.setJSON('ofertas', lista.slice(0, MAX_OFERTAS));
     return json({ ok: true });
   }

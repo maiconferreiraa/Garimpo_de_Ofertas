@@ -14,10 +14,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Ofertas verificadas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, direto no seu WhatsApp. Grupo 100% gratuito, sem spam.">
 <link rel="icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -164,6 +164,18 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .vitrine-btn{margin:0 12px 12px;text-align:center;font-size:.78rem;font-weight:800;padding:9px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
 .vitrine-cta{text-align:center;margin-top:18px;font-size:.88rem;color:rgba(255,255,255,.7)}
 .vitrine-cta a{color:#ffb020;font-weight:700}
+.destaque{padding:22px 20px 8px}
+.destaque-card{max-width:440px;margin:0 auto;background:#141320;border:1px solid rgba(255,176,32,.45);border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(255,176,32,.12)}
+.destaque-card img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#fff}
+.destaque-info{padding:16px 18px 18px}
+.destaque-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:#ffb020;font-weight:700;margin-bottom:8px}
+.destaque-titulo{font-size:1rem;font-weight:700;line-height:1.4;margin-bottom:12px}
+.destaque-preco{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:16px}
+.destaque-preco s{font-size:.85rem;color:rgba(255,255,255,.45)}
+.destaque-preco b{font-size:1.7rem;font-weight:900}
+.destaque-preco em{font-style:normal;font-size:.78rem;font-weight:800;background:#ffb020;color:#111;padding:3px 9px;border-radius:100px}
+.destaque-btn{display:block;text-align:center;background:#ffb020;color:#111;font-weight:900;font-size:1.05rem;padding:15px;border-radius:14px;text-decoration:none}
+.destaque-nota{text-align:center;font-size:.72rem;color:rgba(255,255,255,.45);margin-top:10px}
 </style>
 </head>
 <body>
@@ -191,13 +203,28 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   </div>
 </div>
 
+<!-- Destaque: quando a página abre por /o/<id> (link do status do WhatsApp),
+     o produto daquele status aparece aqui, antes de tudo. -->
+<section class="destaque" id="destaque" hidden>
+  <div class="destaque-card">
+    <img id="destaqueImg" alt="">
+    <div class="destaque-info">
+      <p class="destaque-label">🔥 A oferta que você viu no status</p>
+      <p class="destaque-titulo" id="destaqueTitulo"></p>
+      <div class="destaque-preco" id="destaquePreco"></div>
+      <a class="destaque-btn" id="destaqueBtn" rel="noopener sponsored">🛒 Comprar agora</a>
+      <p class="destaque-nota" id="destaqueNota"></p>
+    </div>
+  </div>
+</section>
+
 <section class="hero">
   <div class="eyebrow"><span class="pulse-dot"></span>Grupos de Garimpo</div>
   <h1>As melhores promoções da internet em um só lugar</h1>
   <p class="hero-sub">Ofertas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, garimpadas e verificadas todos os dias — direto no seu WhatsApp.</p>
   <div class="hero-logos">
-    <img decoding="async" src="img/1a3fa39504.jpg" alt="Logo grupo Ferramentas">
-    <img decoding="async" src="img/34563b1796.jpg" alt="Logo grupo Ofertas Gerais">
+    <img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo grupo Ferramentas">
+    <img decoding="async" src="/img/34563b1796.jpg" alt="Logo grupo Ofertas Gerais">
   </div>
   <div class="gender-ctas" id="main-ctas">
     <a class="btn-gender btn-masc" href="/r/grupo-ferramentas" target="_blank" rel="noopener">
@@ -254,7 +281,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   <div class="chat-mock">
     <p class="chat-mock-head">💬 Assim chega no seu WhatsApp</p>
     <div class="chat-bubble">
-      <img decoding="async" src="img/2f0b730666.jpg" alt="Tênis Kappa Pulse Supra Masculino Feminino" loading="lazy">
+      <img decoding="async" src="/img/2f0b730666.jpg" alt="Tênis Kappa Pulse Supra Masculino Feminino" loading="lazy">
       <div class="chat-text">
         ⚡ <b>OFERTA RELÂMPAGO</b> ⚡<br>
         👟 Tênis Kappa Pulse Supra Masculino Feminino<br>
@@ -281,7 +308,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
-          <img decoding="async" src="img/a7f79b996b.jpg" alt="Parafusadeira Furadeira Impacto Sem Fio 2 Bateri…" loading="lazy">
+          <img decoding="async" src="/img/a7f79b996b.jpg" alt="Parafusadeira Furadeira Impacto Sem Fio 2 Bateri…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-77%</span>
             <span class="price-old">R$ 499,99</span>
@@ -293,7 +320,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">🏠 Casa</span>
-          <img decoding="async" src="img/5f3226b592.jpg" alt="Cozinha Completa de Canto Madesa Agata 399001 co…" loading="lazy">
+          <img decoding="async" src="/img/5f3226b592.jpg" alt="Cozinha Completa de Canto Madesa Agata 399001 co…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-38%</span>
             <span class="price-old">R$ 1.299,90</span>
@@ -305,7 +332,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
-          <img decoding="async" src="img/4f726d5889.jpg" alt="Kit Jogo Ferramentas 169 Peças Soquetes + Parafu…" loading="lazy">
+          <img decoding="async" src="/img/4f726d5889.jpg" alt="Kit Jogo Ferramentas 169 Peças Soquetes + Parafu…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-42%</span>
             <span class="price-old">R$ 364,54</span>
@@ -317,7 +344,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">🏠 Casa</span>
-          <img decoding="async" src="img/238f809471.jpg" alt="DAGUAN Escorredor de Pia Torneira Escorredor de…" loading="lazy">
+          <img decoding="async" src="/img/238f809471.jpg" alt="DAGUAN Escorredor de Pia Torneira Escorredor de…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-50%</span>
             <span class="price-old">R$ 79,90</span>
@@ -329,7 +356,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
-          <img decoding="async" src="img/6e3d2fed7f.jpg" alt="Martelete Rompedor Furadeira De Impacto Allmind…" loading="lazy">
+          <img decoding="async" src="/img/6e3d2fed7f.jpg" alt="Martelete Rompedor Furadeira De Impacto Allmind…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-40%</span>
             <span class="price-old">R$ 549,90</span>
@@ -341,7 +368,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">🌸 Perfumes</span>
-          <img decoding="async" src="img/6648a2b139.jpg" alt="Perfume Outside Vanille - Le botanic - Alta Fixa…" loading="lazy">
+          <img decoding="async" src="/img/6648a2b139.jpg" alt="Perfume Outside Vanille - Le botanic - Alta Fixa…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-47%</span>
             <span class="price-old">R$ 189,90</span>
@@ -353,7 +380,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>
-          <img decoding="async" src="img/8a7843367c.jpg" alt="Kit Maleta Estojo Ferramentas 9 Peças Martelo Al…" loading="lazy">
+          <img decoding="async" src="/img/8a7843367c.jpg" alt="Kit Maleta Estojo Ferramentas 9 Peças Martelo Al…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-44%</span>
             <span class="price-old">R$ 89,90</span>
@@ -365,7 +392,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">🌸 Perfumes</span>
-          <img decoding="async" src="img/cac957b38b.jpg" alt="Perfume Arabe Special Oud Al Wataniah Masculino…" loading="lazy">
+          <img decoding="async" src="/img/cac957b38b.jpg" alt="Perfume Arabe Special Oud Al Wataniah Masculino…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-47%</span>
             <span class="price-old">R$ 149,90</span>
@@ -377,7 +404,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🧱 Construção</span>
-          <img decoding="async" src="img/7743e55a24.jpg" alt="Tinta Emborrachada Premium 3.6kg ou 1kg Impermea…" loading="lazy">
+          <img decoding="async" src="/img/7743e55a24.jpg" alt="Tinta Emborrachada Premium 3.6kg ou 1kg Impermea…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-38%</span>
             <span class="price-old">R$ 129,90</span>
@@ -389,7 +416,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">🔌 Eletrônicos</span>
-          <img decoding="async" src="img/23ad1e3180.jpg" alt="Projetor HY300 Bivolt 4K com Wi-fi e Bluetooth c…" loading="lazy">
+          <img decoding="async" src="/img/23ad1e3180.jpg" alt="Projetor HY300 Bivolt 4K com Wi-fi e Bluetooth c…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-42%</span>
             <span class="price-old">R$ 449,90</span>
@@ -401,7 +428,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🧱 Construção</span>
-          <img decoding="async" src="img/ab1e628a40.jpg" alt="Torneira Elétrica Zagonel Prima Touch Parede E B…" loading="lazy">
+          <img decoding="async" src="/img/ab1e628a40.jpg" alt="Torneira Elétrica Zagonel Prima Touch Parede E B…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-39%</span>
             <span class="price-old">R$ 229,90</span>
@@ -413,7 +440,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">🔌 Eletrônicos</span>
-          <img decoding="async" src="img/1a26bc6221.jpg" alt="Secador Duo Maxx Bivolt (2000W) – Lizz Pro" loading="lazy">
+          <img decoding="async" src="/img/1a26bc6221.jpg" alt="Secador Duo Maxx Bivolt (2000W) – Lizz Pro" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-40%</span>
             <span class="price-old">R$ 149,90</span>
@@ -425,7 +452,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🔌 Eletrônicos</span>
-          <img decoding="async" src="img/5251b38d3e.jpg" alt="Interruptor Smart Inteligente Wi-fi 2.4 Ghz Alex…" loading="lazy">
+          <img decoding="async" src="/img/5251b38d3e.jpg" alt="Interruptor Smart Inteligente Wi-fi 2.4 Ghz Alex…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-43%</span>
             <span class="price-old">R$ 69,90</span>
@@ -437,7 +464,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">👟 Calçados</span>
-          <img decoding="async" src="img/2f0b730666.jpg" alt="Tênis Kappa Pulse Supra Masculino Feminino" loading="lazy">
+          <img decoding="async" src="/img/2f0b730666.jpg" alt="Tênis Kappa Pulse Supra Masculino Feminino" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-44%</span>
             <span class="price-old">R$ 259,99</span>
@@ -449,7 +476,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-ferramentas">🔌 Eletrônicos</span>
-          <img decoding="async" src="img/d6b8f140cb.jpg" alt="Smartwatch QCY GT S8 Bluetooth, Para Corrida e T…" loading="lazy">
+          <img decoding="async" src="/img/d6b8f140cb.jpg" alt="Smartwatch QCY GT S8 Bluetooth, Para Corrida e T…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-40%</span>
             <span class="price-old">R$ 199,90</span>
@@ -461,7 +488,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">👟 Calçados</span>
-          <img decoding="async" src="img/090dbccb3a.jpg" alt="Kit 2 Pares Tenis Masculino Original Confortavel…" loading="lazy">
+          <img decoding="async" src="/img/090dbccb3a.jpg" alt="Kit 2 Pares Tenis Masculino Original Confortavel…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-46%</span>
             <span class="price-old">R$ 129,90</span>
@@ -473,7 +500,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">👕 Roupas</span>
-          <img decoding="async" src="img/470aee495e.jpg" alt="CONJUNTO FEMININO SHORTS + COLETE NOVA TENDENCIA…" loading="lazy">
+          <img decoding="async" src="/img/470aee495e.jpg" alt="CONJUNTO FEMININO SHORTS + COLETE NOVA TENDENCIA…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-40%</span>
             <span class="price-old">R$ 99,90</span>
@@ -485,7 +512,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="carousel-slide">
         <div class="offer-card">
           <span class="offer-tag tag-diversos">👕 Roupas</span>
-          <img decoding="async" src="img/599e1251c5.jpg" alt="Conjunto Feminino de Academia Calça Legging + To…" loading="lazy">
+          <img decoding="async" src="/img/599e1251c5.jpg" alt="Conjunto Feminino de Academia Calça Legging + To…" loading="lazy">
           <div class="price-ribbon">
             <span class="price-off">-41%</span>
             <span class="price-old">R$ 109,90</span>
@@ -522,14 +549,14 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   <h2 class="section-title">Qual grupo é o seu?</h2>
   <div class="gender-section">
     <div class="gender-card gender-card-masc">
-      <img decoding="async" src="img/1a3fa39504.jpg" alt="Logo Ferramentas Descontos &amp; Cia" loading="lazy">
+      <img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo Ferramentas Descontos &amp; Cia" loading="lazy">
       <p class="gender-label gender-label-masc">Ferramentas</p>
       <p class="gender-title">Ferramentas Descontos &amp; Cia</p>
       <p class="gender-tagline">Ferramentas, materiais de construção e eletrônicos</p>
       <a class="btn-gender-sm btn-gender-sm-masc" href="/r/grupo-ferramentas" target="_blank" rel="noopener">Entrar Agora</a>
     </div>
     <div class="gender-card gender-card-fem">
-      <img decoding="async" src="img/34563b1796.jpg" alt="Logo Ester Garimpou #10" loading="lazy">
+      <img decoding="async" src="/img/34563b1796.jpg" alt="Logo Ester Garimpou #10" loading="lazy">
       <p class="gender-label gender-label-fem">Ofertas Gerais</p>
       <p class="gender-title">Ester Garimpou #10</p>
       <p class="gender-tagline">Casa, perfumes, eletrônicos, calçados, roupas e muito mais</p>
@@ -603,7 +630,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   <div class="fab-menu" id="fabMenu">
     <div class="fab-menu-head"><span>🔥 Escolha seu grupo</span></div>
     <a class="fab-option fab-masc" href="/r/grupo-ferramentas" target="_blank" rel="noopener">
-      <img decoding="async" src="img/1a3fa39504.jpg" alt="Logo Ferramentas Descontos &amp; Cia">
+      <img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo Ferramentas Descontos &amp; Cia">
       <div class="fab-option-text">
         <p class="fab-option-eyebrow">🔧 Ferramentas</p>
         <p class="fab-option-title">Ferramentas Descontos &amp; Cia</p>
@@ -612,7 +639,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <span class="fab-option-arrow">→</span>
     </a>
     <a class="fab-option fab-fem" href="/r/grupo-diversos" target="_blank" rel="noopener">
-      <img decoding="async" src="img/34563b1796.jpg" alt="Logo Ester Garimpou #10">
+      <img decoding="async" src="/img/34563b1796.jpg" alt="Logo Ester Garimpou #10">
       <div class="fab-option-text">
         <p class="fab-option-eyebrow">🛍️ Ofertas Gerais</p>
         <p class="fab-option-title">Ester Garimpou #10</p>
@@ -711,6 +738,33 @@ document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); 
       </a>`;
     }).join('');
     document.getElementById('vitrine').hidden = false;
+  } catch {}
+})();
+</script>
+<script>
+// Destaque da oferta aberta por /o/<id> (ver seção #destaque). Se a oferta
+// não existir mais, a página segue normal, sem erro.
+(async () => {
+  const m = location.pathname.match(/^\/o\/([a-f0-9]{12})/);
+  if (!m) return;
+  try {
+    const res = await fetch('/api/oferta/' + m[1]);
+    if (!res.ok) return;
+    const o = await res.json();
+    const brl = (n) => 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const off = o.precoDe && o.precoDe > o.preco ? Math.round((1 - o.preco / o.precoDe) * 100) : 0;
+    const loja = { amazon: 'Amazon', shopee: 'Shopee', magalu: 'Magalu', netshoes: 'Netshoes' }[o.plataforma] || 'Mercado Livre';
+    if (o.imagem) document.getElementById('destaqueImg').src = o.imagem; else document.getElementById('destaqueImg').remove();
+    document.getElementById('destaqueImg').alt = o.titulo;
+    document.getElementById('destaqueTitulo').textContent = o.titulo;
+    const preco = document.getElementById('destaquePreco');
+    if (off) { const s = document.createElement('s'); s.textContent = brl(o.precoDe); preco.append(s); }
+    const b = document.createElement('b'); b.textContent = brl(o.preco); preco.append(b);
+    if (off) { const e = document.createElement('em'); e.textContent = '-' + off + '%'; preco.append(e); }
+    document.getElementById('destaqueBtn').href = o.link;
+    document.getElementById('destaqueNota').textContent = 'Você vai direto pro anúncio no ' + loja + '. Preço sujeito a alteração.';
+    document.title = o.titulo + ' — Garimpo de Ofertas';
+    document.getElementById('destaque').hidden = false;
   } catch {}
 })();
 </script>

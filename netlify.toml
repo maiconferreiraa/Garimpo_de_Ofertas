@@ -4,3 +4,10 @@ publish = "."
 [functions]
 directory = "netlify/functions"
 node_bundler = "esbuild"
+
+# Página de uma oferta (link do status do WhatsApp): a própria index.html
+# lê o id do endereço e mostra o produto em destaque no topo.
+[[redirects]]
+from = "/o/*"
+to = "/index.html"
+status = 200
