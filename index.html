@@ -162,6 +162,11 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .vitrine-preco b{font-size:1rem;color:#fff}
 .vitrine-preco em{font-style:normal;font-size:.68rem;font-weight:800;background:#ffb020;color:#111;padding:2px 7px;border-radius:100px}
 .vitrine-btn{margin:0 12px 12px;text-align:center;font-size:.78rem;font-weight:800;padding:9px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.vitrine-tempo{margin:0 12px 8px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.7)}
+.vitrine-tempo.urgente{color:#ff6b5a}
+.vitrine-aviso{text-align:center;max-width:560px;margin:-6px auto 14px;font-size:.85rem;color:rgba(255,255,255,.75)}
+.destaque-tempo{font-weight:800;color:#ffb020;margin:6px 0}
+.destaque-tempo.urgente{color:#ff6b5a}
 .vitrine-cta{text-align:center;margin-top:18px;font-size:.88rem;color:rgba(255,255,255,.7)}
 .vitrine-cta a{color:#ffb020;font-weight:700}
 .vitrine-filtros{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 auto 14px}
@@ -223,6 +228,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <p class="destaque-label">🔥 A oferta que você viu no status</p>
       <p class="destaque-titulo" id="destaqueTitulo"></p>
       <div class="destaque-preco" id="destaquePreco"></div>
+      <p class="destaque-tempo" id="destaqueTempo" hidden></p>
       <a class="destaque-btn" id="destaqueBtn" rel="noopener sponsored">🛒 Comprar agora</a>
       <p class="destaque-nota" id="destaqueNota"></p>
     </div>
@@ -257,6 +263,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 <section class="section" id="vitrine" hidden>
   <p class="section-label">Acabou de sair nos grupos</p>
   <h2 class="section-title">🔥 Ofertas de hoje</h2>
+  <p class="vitrine-aviso">⏳ <b>Corre que é por tempo limitado!</b> Cada oferta fica aqui só por um tempo: Mercado Livre, Amazon e Magalu por <b>24h</b>, Shopee por <b>7 dias</b>. Depois sai do site. Viu uma boa? Aproveita logo.</p>
   <div class="vitrine-filtros" id="vitrineFiltros">
     <button type="button" data-cat="" class="ativo">Todas</button>
     <button type="button" data-cat="ferramentas">🔧 Ferramentas</button>
@@ -739,6 +746,27 @@ function animateCount(el) {
 document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); });
 </script>
 <script>
+// Tempo que falta pra oferta sair do site (expiraEm vem da API: publicação
+// + 24h, ou 7 dias na Shopee). Menos de 3h fica em vermelho.
+function tempoRestante(expiraEm) {
+  const ms = expiraEm - Date.now();
+  if (!(ms > 0)) return null;
+  const min = Math.ceil(ms / 60000);
+  const d = Math.floor(min / 1440), h = Math.floor((min % 1440) / 60), m = min % 60;
+  const texto = d ? `${d} dia${d > 1 ? 's' : ''}${h ? ` e ${h}h` : ''}` : h ? `${h}h ${String(m).padStart(2, '0')}min` : `${m} min`;
+  return { texto, urgente: ms < 3 * 60 * 60 * 1000 };
+}
+// Atualiza de minuto em minuto todo [data-expira]; o que venceu some.
+setInterval(() => {
+  document.querySelectorAll('[data-expira]').forEach((el) => {
+    const t = tempoRestante(Number(el.dataset.expira));
+    if (!t) { (el.closest('.offer-card') || el).remove(); return; }
+    el.textContent = `⏳ ${el.dataset.prefixo || 'Sai do site em'} ${t.texto}`;
+    el.classList.toggle('urgente', t.urgente);
+  });
+}, 60 * 1000);
+</script>
+<script>
 // Vitrine — ofertas recentes vindas do robô. Qualquer falha só deixa a
 // seção escondida; o resto da página não depende disso.
 (async () => {
@@ -758,6 +786,7 @@ document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); 
           ${o.imagem ? `<img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">` : ''}
           <p class="offer-title">${esc(o.titulo)}</p>
           <div class="vitrine-preco">${off ? `<s>${brl(o.precoDe)}</s>` : ''}<b>${brl(o.preco)}</b>${off ? `<em>-${off}%</em>` : ''}</div>
+          ${(() => { const t = o.expiraEm && tempoRestante(o.expiraEm); return t ? `<span class="vitrine-tempo${t.urgente ? ' urgente' : ''}" data-expira="${o.expiraEm}">⏳ Sai do site em ${t.texto}</span>` : ''; })()}
           <span class="vitrine-btn">Ver oferta →</span>
         </a>`;
     };
@@ -818,6 +847,15 @@ document.querySelectorAll('.count-up').forEach(function(el) { animateCount(el); 
     const b = document.createElement('b'); b.textContent = brl(o.preco); preco.append(b);
     if (off) { const e = document.createElement('em'); e.textContent = '-' + off + '%'; preco.append(e); }
     document.getElementById('destaqueBtn').href = o.link;
+    const t = o.expiraEm && tempoRestante(o.expiraEm);
+    if (t) {
+      const el = document.getElementById('destaqueTempo');
+      el.dataset.expira = o.expiraEm;
+      el.dataset.prefixo = 'Corre! Essa oferta sai do site em';
+      el.textContent = `⏳ Corre! Essa oferta sai do site em ${t.texto}`;
+      el.classList.toggle('urgente', t.urgente);
+      el.hidden = false;
+    }
     document.getElementById('destaqueNota').textContent = 'Você vai direto pro anúncio no ' + loja + '. Preço sujeito a alteração.';
     document.title = o.titulo + ' — Garimpo de Ofertas';
     document.getElementById('destaque').hidden = false;

@@ -18,9 +18,12 @@ const HORA_MS = 60 * 60 * 1000;
 const VALIDADE_POR_PLATAFORMA_MS = { shopee: 7 * 24 * HORA_MS };
 const VALIDADE_PADRAO_MS = 24 * HORA_MS;
 
+function expiraEm(o) {
+  return o.publicadoEm + (VALIDADE_POR_PLATAFORMA_MS[o.plataforma] ?? VALIDADE_PADRAO_MS);
+}
+
 function ofertaValida(o) {
-  const validade = VALIDADE_POR_PLATAFORMA_MS[o.plataforma] ?? VALIDADE_PADRAO_MS;
-  return Date.now() - o.publicadoEm < validade;
+  return Date.now() < expiraEm(o);
 }
 
 export default async (req) => {
@@ -31,7 +34,7 @@ export default async (req) => {
 
   if (rota === 'GET /api/vitrine') {
     const lista = (await vitrine().get('ofertas', { type: 'json' })) || [];
-    return json(lista.filter(ofertaValida), 200, { 'cache-control': 'public, max-age=60' });
+    return json(lista.filter(ofertaValida).map((o) => ({ ...o, expiraEm: expiraEm(o) })), 200, { 'cache-control': 'public, max-age=60' });
   }
 
   // Página de uma oferta só (/o/<id>, link do status do WhatsApp). Cada
@@ -43,7 +46,7 @@ export default async (req) => {
     const oferta = (await store.get(`o-${mOferta[1]}`, { type: 'json' }))
       || ((await store.get('ofertas', { type: 'json' })) || []).find((o) => o.id === mOferta[1]);
     if (!oferta || !ofertaValida(oferta)) return json({ erro: 'oferta não encontrada' }, 404);
-    return json(oferta, 200, { 'cache-control': 'public, max-age=300' });
+    return json({ ...oferta, expiraEm: expiraEm(oferta) }, 200, { 'cache-control': 'public, max-age=300' });
   }
 
   // Visita que chegou por um link com origem (?c=compartilhe) — a página
