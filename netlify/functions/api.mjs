@@ -9,10 +9,19 @@ import { linksRastreados, cliques, vitrine, imagens, autorizado, json, contarCli
 //   POST /api/links              → registra links rastreados   [chave]
 //   POST /api/vitrine/oferta     → adiciona oferta na vitrine   [chave]
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
-// Todas as ofertas das últimas 48h (o robô posta ~100/dia nas 2 categorias);
-// a página mostra em páginas de 8, passando pro lado.
-const MAX_OFERTAS = 400;
-const VALIDADE_OFERTA_MS = 48 * 60 * 60 * 1000;
+// Cada oferta fica no site pelo tempo que o link da plataforma vale (pedido
+// do usuário em 2026-09-29): Shopee 7 dias, Mercado Livre (e o resto) 24h,
+// contadas do horário em que saiu. Vale pra vitrine e pra página /o/<id>.
+// A página mostra em páginas de 8, passando pro lado.
+const MAX_OFERTAS = 1000;
+const HORA_MS = 60 * 60 * 1000;
+const VALIDADE_POR_PLATAFORMA_MS = { shopee: 7 * 24 * HORA_MS };
+const VALIDADE_PADRAO_MS = 24 * HORA_MS;
+
+function ofertaValida(o) {
+  const validade = VALIDADE_POR_PLATAFORMA_MS[o.plataforma] ?? VALIDADE_PADRAO_MS;
+  return Date.now() - o.publicadoEm < validade;
+}
 
 export default async (req) => {
   const { pathname } = new URL(req.url);
@@ -22,8 +31,7 @@ export default async (req) => {
 
   if (rota === 'GET /api/vitrine') {
     const lista = (await vitrine().get('ofertas', { type: 'json' })) || [];
-    const limite = Date.now() - VALIDADE_OFERTA_MS;
-    return json(lista.filter((o) => o.publicadoEm >= limite), 200, { 'cache-control': 'public, max-age=60' });
+    return json(lista.filter(ofertaValida), 200, { 'cache-control': 'public, max-age=60' });
   }
 
   // Página de uma oferta só (/o/<id>, link do status do WhatsApp). Cada
@@ -34,7 +42,7 @@ export default async (req) => {
     const store = vitrine();
     const oferta = (await store.get(`o-${mOferta[1]}`, { type: 'json' }))
       || ((await store.get('ofertas', { type: 'json' })) || []).find((o) => o.id === mOferta[1]);
-    if (!oferta) return json({ erro: 'oferta não encontrada' }, 404);
+    if (!oferta || !ofertaValida(oferta)) return json({ erro: 'oferta não encontrada' }, 404);
     return json(oferta, 200, { 'cache-control': 'public, max-age=300' });
   }
 
@@ -71,7 +79,7 @@ export default async (req) => {
     const lista = ((await store.get('ofertas', { type: 'json' })) || []).filter((o) => o.id !== oferta.id);
     lista.unshift({ ...oferta, publicadoEm: Date.now() });
     await store.setJSON(`o-${oferta.id}`, { ...oferta, publicadoEm: Date.now() });
-    await store.setJSON('ofertas', lista.slice(0, MAX_OFERTAS));
+    await store.setJSON('ofertas', lista.filter(ofertaValida).slice(0, MAX_OFERTAS));
     return json({ ok: true });
   }
 
