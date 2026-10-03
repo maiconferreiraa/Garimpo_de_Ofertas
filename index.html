@@ -41,6 +41,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .gender-ctas{display:flex;flex-direction:column;gap:14px;max-width:400px;margin:0 auto 14px}
 .btn-gender{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px 20px;border:none;border-radius:14px;font-size:0.8rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s}
 .btn-masc{background:#1f6f8b;color:#fff}
+.btn-tg{background:#229ED9;color:#fff}
+.btn-tg:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 6px 16px rgba(34,158,217,0.55)}
+.tg-line{text-align:center;margin-top:18px;font-size:0.9rem}
+.tg-line a{color:#5ec8f0;font-weight:700}
 .btn-masc:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 6px 16px rgba(31,111,139,0.55)}
 .btn-fem{background:#7c3aed;color:#fff}
 .btn-fem:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 6px 16px rgba(124,58,237,0.55)}
@@ -129,6 +133,9 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .fab-option::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
 .fab-option.fab-masc::before{background:#1f6f8b}
 .fab-option.fab-fem::before{background:#7c3aed}
+.fab-option.fab-tg::before{background:#229ED9}
+.fab-option.fab-tg .fab-option-eyebrow{color:#5ec8f0}
+.fab-tg-icon{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#229ED9;font-size:1.2rem}
 .fab-option:nth-child(2){animation-delay:0.06s}
 .fab-option img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,0.15)}
 .fab-option-text{flex:1;min-width:0}
@@ -238,7 +245,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 <section class="hero">
   <div class="eyebrow"><span class="pulse-dot"></span>Grupos de Garimpo</div>
   <h1>As melhores promoções da internet em um só lugar</h1>
-  <p class="hero-sub">Ofertas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, garimpadas e verificadas todos os dias — direto no seu WhatsApp.</p>
+  <p class="hero-sub">Ofertas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, garimpadas e verificadas todos os dias — direto no seu WhatsApp ou Telegram.</p>
   <div class="hero-logos">
     <img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo grupo Ferramentas">
     <img decoding="async" src="/img/34563b1796.jpg" alt="Logo grupo Ofertas Gerais">
@@ -249,6 +256,9 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
     </a>
     <a class="btn-gender btn-fem" href="/r/grupo-diversos" target="_blank" rel="noopener">
       <span class="btn-icon">🛍️</span> Entrar — Ester Garimpou #10
+    </a>
+    <a class="btn-gender btn-tg" href="/r/grupo-telegram" target="_blank" rel="noopener">
+      <span class="btn-icon">✈️</span> Prefere Telegram? Entrar no canal
     </a>
   </div>
   <p class="social-proof">👥 Já são <span class="count-up" data-target="2500" data-prefix="+" data-suffix=" pessoas">+0 pessoas</span> nos dois grupos economizando junto</p>
@@ -591,6 +601,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <a class="btn-gender-sm btn-gender-sm-fem" href="/r/grupo-diversos" target="_blank" rel="noopener">Entrar Agora</a>
     </div>
   </div>
+  <p class="tg-line">✈️ Usa Telegram? As ofertas dos dois grupos também saem no canal <a href="/r/grupo-telegram" target="_blank" rel="noopener">t.me/estergarimpou</a></p>
 </section>
 
 <div class="divider"></div>
@@ -643,6 +654,9 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
     <a class="btn-gender btn-fem" href="/r/grupo-diversos" target="_blank" rel="noopener">
       <span class="btn-icon">🛍️</span> Quero Entrar — Ester Garimpou #10
     </a>
+    <a class="btn-gender btn-tg" href="/r/grupo-telegram" target="_blank" rel="noopener">
+      <span class="btn-icon">✈️</span> Quero Entrar — Canal no Telegram
+    </a>
   </div>
   <div class="trust-line">
     <span>✅ Gratuito</span>
@@ -651,7 +665,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   </div>
 </div>
 
-<footer>Garimpo de Ofertas — conteúdo e links de afiliado. Grupos administrados via WhatsApp.</footer>
+<footer>Garimpo de Ofertas — conteúdo e links de afiliado. Grupos administrados via WhatsApp e canal no Telegram.</footer>
 
 <div class="fab-backdrop" id="fabBackdrop" onclick="toggleFab(false)"></div>
 <div class="fab-wrap">
@@ -672,6 +686,15 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
         <p class="fab-option-eyebrow">🛍️ Ofertas Gerais</p>
         <p class="fab-option-title">Ester Garimpou #10</p>
         <p class="fab-option-sub">Casa, perfumes, calçados e mais</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-tg" href="/r/grupo-telegram" target="_blank" rel="noopener">
+      <span class="fab-tg-icon" aria-hidden="true">✈️</span>
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">✈️ Telegram</p>
+        <p class="fab-option-title">Canal Ester Garimpou</p>
+        <p class="fab-option-sub">As ofertas dos dois grupos</p>
       </div>
       <span class="fab-option-arrow">→</span>
     </a>
