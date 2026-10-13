@@ -67,14 +67,16 @@ export default async (req) => {
   if (rota === 'POST /api/links') {
     const { links = [] } = await req.json();
     const store = linksRastreados();
+    let comCanais = 0;
     for (const l of links) {
       if (!l?.id || !/^https?:\/\//.test(l.url || '')) continue;
       // canais: destino do mesmo produto marcado por canal (ver r.mjs)
       const canais = {};
       for (const [c, u] of Object.entries(l.canais || {})) if (/^[a-z]{1,10}$/.test(c) && /^https:\/\//.test(u || '')) canais[c] = u;
       await store.setJSON(l.id, { url: l.url, criadoEm: Date.now(), ...(Object.keys(canais).length ? { canais } : {}) });
+      if (Object.keys(canais).length) comCanais++;
     }
-    return json({ ok: true, registrados: links.length });
+    return json({ ok: true, registrados: links.length, comCanais });
   }
 
   if (rota === 'POST /api/vitrine/oferta') {
