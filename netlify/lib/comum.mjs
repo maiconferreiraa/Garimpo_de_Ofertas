@@ -9,6 +9,7 @@ export const linksRastreados = () => getStore({ name: 'links', consistency: 'str
 export const cliques = () => getStore({ name: 'cliques', consistency: 'strong' });
 export const vitrine = () => getStore({ name: 'vitrine', consistency: 'strong' });
 export const imagens = () => getStore({ name: 'imagens' });
+export const videos = () => getStore({ name: 'videos', consistency: 'strong' });
 
 async function sha256(texto) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));

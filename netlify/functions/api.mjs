@@ -1,4 +1,4 @@
-import { linksRastreados, cliques, vitrine, imagens, autorizado, json, contarClique } from '../lib/comum.mjs';
+import { linksRastreados, cliques, vitrine, imagens, videos, autorizado, json, contarClique } from '../lib/comum.mjs';
 
 // API usada pelo robô (escrita, com chave) e pela própria página (leitura
 // pública da vitrine):
@@ -8,6 +8,9 @@ import { linksRastreados, cliques, vitrine, imagens, autorizado, json, contarCli
 //   POST /api/visita             → conta visita vinda de uma origem (público)
 //   POST /api/links              → registra links rastreados   [chave]
 //   POST /api/vitrine/oferta     → adiciona oferta na vitrine   [chave]
+//   POST /api/vitrine/remover    → tira ofertas (esgotou/subiu) [chave]
+//   POST /api/vitrine/preco      → corrige o preço de uma oferta [chave]
+//   POST /api/video              → guarda o vídeo do reel do dia [chave]
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
 // Cada oferta fica no site pelo tempo que o link da plataforma vale (pedido
 // do usuário em 2026-09-29): Shopee 7 dias, Mercado Livre (e o resto) 24h,
@@ -84,6 +87,43 @@ export default async (req) => {
     await store.setJSON(`o-${oferta.id}`, { ...oferta, publicadoEm: Date.now() });
     await store.setJSON('ofertas', lista.filter(ofertaValida).slice(0, MAX_OFERTAS));
     return json({ ok: true });
+  }
+
+  // Faxina (faxinaVitrine.js no robô): produto que saiu do ar ou subiu de
+  // preço sai da lista e da página /o/<id>.
+  if (rota === 'POST /api/vitrine/remover') {
+    const { ids = [] } = await req.json();
+    const fora = new Set(ids.filter((id) => /^[a-f0-9]{12}$/.test(id)));
+    const store = vitrine();
+    const lista = (await store.get('ofertas', { type: 'json' })) || [];
+    await store.setJSON('ofertas', lista.filter((o) => !fora.has(o.id)));
+    for (const id of fora) await store.delete(`o-${id}`);
+    return json({ ok: true, removidas: fora.size });
+  }
+
+  // Mesmo produto ficou mais barato depois do post: só troca o preço (a
+  // data de publicação e a validade continuam as do post).
+  if (rota === 'POST /api/vitrine/preco') {
+    const { id, preco, precoDe } = await req.json();
+    if (!/^[a-f0-9]{12}$/.test(id || '') || !(Number(preco) > 0)) return json({ erro: 'dados inválidos' }, 400);
+    const store = vitrine();
+    const trocar = (o) => ({ ...o, preco: Number(preco), precoDe: Number(precoDe) > Number(preco) ? Number(precoDe) : o.precoDe });
+    const lista = (await store.get('ofertas', { type: 'json' })) || [];
+    await store.setJSON('ofertas', lista.map((o) => (o.id === id ? trocar(o) : o)));
+    const avulsa = await store.get(`o-${id}`, { type: 'json' });
+    if (avulsa) await store.setJSON(`o-${id}`, trocar(avulsa));
+    return json({ ok: true });
+  }
+
+  // Vídeo do reel do dia (reels.js no robô): o Instagram só aceita vídeo
+  // por URL pública. Guarda um só (o de hoje substitui o de ontem) e serve
+  // em /video/reel.mp4 (netlify/functions/video.mjs).
+  if (rota === 'POST /api/video') {
+    const { videoBase64 } = await req.json();
+    if (!videoBase64) return json({ erro: 'vídeo vazio' }, 400);
+    const bytes = Uint8Array.from(atob(videoBase64), (c) => c.charCodeAt(0));
+    await videos().set('reel', bytes);
+    return json({ ok: true, caminho: `/video/reel.mp4?v=${Date.now()}`, bytes: bytes.length });
   }
 
   if (rota === 'GET /api/cliques') {
