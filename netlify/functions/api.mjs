@@ -68,7 +68,11 @@ export default async (req) => {
     const { links = [] } = await req.json();
     const store = linksRastreados();
     for (const l of links) {
-      if (l?.id && /^https?:\/\//.test(l.url || '')) await store.setJSON(l.id, { url: l.url, criadoEm: Date.now() });
+      if (!l?.id || !/^https?:\/\//.test(l.url || '')) continue;
+      // canais: destino do mesmo produto marcado por canal (ver r.mjs)
+      const canais = {};
+      for (const [c, u] of Object.entries(l.canais || {})) if (/^[a-z]{1,10}$/.test(c) && /^https:\/\//.test(u || '')) canais[c] = u;
+      await store.setJSON(l.id, { url: l.url, criadoEm: Date.now(), ...(Object.keys(canais).length ? { canais } : {}) });
     }
     return json({ ok: true, registrados: links.length });
   }

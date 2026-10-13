@@ -21,7 +21,12 @@ export default async (req, context) => {
       // contar é secundário — o redirecionamento nunca pode falhar por isso
     }
   }
-  return new Response(null, { status: 302, headers: { location: link.url, 'cache-control': 'no-store' } });
+  // ?c=<canal> (tg, ig, fb, site): mesmo produto, com a marca do canal no
+  // link de afiliado, pra saber qual canal vende. Sem ?c (WhatsApp) ou canal
+  // desconhecido → destino padrão; link sem canais → o original.
+  const canal = new URL(req.url).searchParams.get('c');
+  const destino = link.canais?.[canal] || link.canais?.padrao || link.url;
+  return new Response(null, { status: 302, headers: { location: destino, 'cache-control': 'no-store' } });
 };
 
 export const config = { path: '/r/:id' };
