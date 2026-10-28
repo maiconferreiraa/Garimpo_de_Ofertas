@@ -815,9 +815,7 @@ setInterval(() => {
     const loja = (o) => LOJAS[o.plataforma] ? `<span class="loja-tag loja-${o.plataforma}">${LOJAS[o.plataforma]}</span>` : '';
     const cardHtml = (o) => {
         const off = o.precoDe && o.precoDe > o.preco ? Math.round((1 - o.preco / o.precoDe) * 100) : 0;
-        const tag = o.categoria === 'ferramentas' ? '<span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>' : '<span class="offer-tag tag-diversos">🛍️ Ofertas</span>';
         return `<a class="offer-card" href="${esc(o.link)}" target="_blank" rel="noopener sponsored">
-          ${tag}
           ${o.imagem ? `<div class="offer-img"><img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">${loja(o)}</div>` : loja(o)}
           <p class="offer-title">${esc(o.titulo)}</p>
           <div class="vitrine-preco">${off ? `<s>${brl(o.precoDe)}</s>` : ''}<b>${brl(o.preco)}</b>${off ? `<em>-${off}%</em>` : ''}</div>
