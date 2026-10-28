@@ -66,6 +66,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .offer-tag{position:absolute;top:10px;left:10px;z-index:2;font-size:0.65rem;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.3px;white-space:nowrap}
 .tag-ferramentas{background:#1f6f8b;color:#fff}
 .tag-diversos{background:#7c3aed;color:#fff}
+.offer-img{position:relative}
+.loja-tag{position:absolute;right:8px;bottom:8px;z-index:2;font-size:0.66rem;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.loja-shopee{background:#ee4d2d;color:#fff}
+.loja-amazon{background:#232f3e;color:#ff9900}
+.loja-mercadolivre{background:#ffe600;color:#2d3277}
 .price-ribbon{display:flex;align-items:baseline;gap:8px;padding:10px 14px 0;flex-wrap:wrap}
 .price-off{background:#ffb020;color:#2a1a00;font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:6px}
 .price-old{font-size:0.72rem;color:rgba(255,255,255,0.4);text-decoration:line-through}
@@ -805,12 +810,15 @@ setInterval(() => {
     // Todas as ofertas (as 2 categorias), 8 por página; arrasta pro lado ou
     // usa as setas. Filtro por categoria no topo.
     const POR_PAGINA = 8;
+    // Etiqueta da loja em cima da foto (pedido do usuário em 2026-10-28).
+    const LOJAS = { shopee: 'Shopee', amazon: 'Amazon', mercadolivre: 'Mercado Livre' };
+    const loja = (o) => LOJAS[o.plataforma] ? `<span class="loja-tag loja-${o.plataforma}">${LOJAS[o.plataforma]}</span>` : '';
     const cardHtml = (o) => {
         const off = o.precoDe && o.precoDe > o.preco ? Math.round((1 - o.preco / o.precoDe) * 100) : 0;
         const tag = o.categoria === 'ferramentas' ? '<span class="offer-tag tag-ferramentas">🔧 Ferramentas</span>' : '<span class="offer-tag tag-diversos">🛍️ Ofertas</span>';
         return `<a class="offer-card" href="${esc(o.link)}" target="_blank" rel="noopener sponsored">
           ${tag}
-          ${o.imagem ? `<img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">` : ''}
+          ${o.imagem ? `<div class="offer-img"><img src="${esc(o.imagem)}" alt="${esc(o.titulo)}" loading="lazy">${loja(o)}</div>` : loja(o)}
           <p class="offer-title">${esc(o.titulo)}</p>
           <div class="vitrine-preco">${off ? `<s>${brl(o.precoDe)}</s>` : ''}<b>${brl(o.preco)}</b>${off ? `<em>-${off}%</em>` : ''}</div>
           ${(() => { const t = o.expiraEm && tempoRestante(o.expiraEm); return t ? `<span class="vitrine-tempo${t.urgente ? ' urgente' : ''}" data-expira="${o.expiraEm}">⏳ Sai do site em ${t.texto}</span>` : ''; })()}
