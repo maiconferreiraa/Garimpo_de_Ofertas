@@ -73,6 +73,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .campanha-card p{color:#fff;font-size:.92rem;margin:0 0 6px}
 .campanha-selo{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:1px;background:#fff;color:#ee4d2d;padding:4px 12px;border-radius:100px}
 .campanha-tempo{font-weight:800}
+.campanha-arte{display:block;width:100%;max-width:360px;margin:12px auto 4px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .campanha-btn{display:inline-block;margin-top:10px;background:#fff;color:#ee4d2d;font-weight:900;padding:12px 22px;border-radius:12px;text-decoration:none}
 .loja-tag{position:absolute;right:8px;bottom:8px;z-index:2;font-size:0.66rem;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.35)}
 .loja-shopee{background:#ee4d2d;color:#fff}
@@ -287,6 +288,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 <section class="campanha" id="campanha1111" hidden>
   <div class="campanha-card">
     <span class="campanha-selo">SHOPEE</span>
+    <a href="https://s.shopee.com.br/906Kw6WPZB" target="_blank" rel="noopener sponsored"><img class="campanha-arte" id="campanhaArte" src="img/campanha-1111-ta-chegando.jpg" alt="11.11 da Shopee tá chegando" width="600" height="600" loading="lazy"></a>
     <h2 id="campanhaTitulo">🛍️ Tá chegando o 11.11!</h2>
     <p id="campanhaTexto">A maior liquidação do ano: cupons, frete grátis e ofertas relâmpago o dia todo.</p>
     <p class="campanha-tempo" id="campanhaTempo"></p>
@@ -310,6 +312,8 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       document.getElementById('campanhaTempo').textContent = `⏳ Começa em ${tempo} — já vai separando o que quer`;
     } else {
       document.getElementById('campanhaTitulo').textContent = '🔥 Chegou o 11.11 da Shopee!';
+      const arte = document.getElementById('campanhaArte');
+      if (!arte.src.endsWith('chegou.jpg')) { arte.src = 'img/campanha-1111-chegou.jpg'; arte.alt = 'Chegou o 11.11 da Shopee'; }
       document.getElementById('campanhaTempo').textContent = `⏰ Termina em ${tempo} — corre que os cupons acabam rápido`;
     }
   };
