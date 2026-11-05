@@ -6,6 +6,7 @@
  */
 import { getStore } from '@netlify/blobs';
 import { autorizado, json } from '../lib/comum.mjs';
+import { responderNaHora, lerConfig, gravarConfig } from '../lib/instagramNaHora.mjs';
 
 // Webhook da Meta (pedido do usuário em 2026-10-18): a leitura do direct do
 // @estergarimpou pela API passou a travar, então a Meta avisa aqui cada
@@ -14,6 +15,10 @@ import { autorizado, json } from '../lib/comum.mjs';
 //   POST /webhook/meta           → aviso da Meta; guardado como veio
 //   GET  /webhook/meta/eventos   → avisos guardados          [chave]
 //   POST /webhook/meta/apagar    → apaga os já processados   [chave]
+//   GET  /webhook/meta/config    → a resposta na hora está pronta? [chave]
+//   POST /webhook/meta/config    → robô manda token/links/grupos   [chave]
+// Desde 2026-11-05 a própria função responde na hora (instagramNaHora.mjs);
+// o aviso continua guardado, marcado com o que já foi tratado.
 // A assinatura (X-Hub-Signature-256) é conferida no PC, onde está o App
 // Secret — aqui só se guarda o corpo cru junto com ela.
 const HASH_VERIFY = '57cafd4e352c01e366b46b91fefa01ffcc88e93aff51c0f91c9e41c4130c8513';
@@ -39,8 +44,11 @@ export default async (req) => {
   if (rota === 'POST /webhook/meta') {
     const corpo = await req.text();
     if (corpo.length > 100000) return new Response('too large', { status: 413 });
+    const assinatura = req.headers.get('x-hub-signature-256') || '';
+    let tratado = null;
+    try { tratado = await responderNaHora(corpo, assinatura); } catch (err) { tratado = { erros: [String(err.message).slice(0, 200)] }; }
     const chave = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-    await eventos().setJSON(chave, { corpo, assinatura: req.headers.get('x-hub-signature-256') || '', em: Date.now() });
+    await eventos().setJSON(chave, { corpo, assinatura, em: Date.now(), ...(tratado ? { tratado } : {}) });
     return new Response('ok', { status: 200 });
   }
 
@@ -54,6 +62,18 @@ export default async (req) => {
       if (e) lista.push({ chave: b.key, ...e });
     }
     return json(lista);
+  }
+
+  if (rota === 'GET /webhook/meta/config') {
+    const c = await lerConfig();
+    return json({ versao: 1, ativo: Boolean(c?.ativo), em: c?.em || null }); // nunca devolve o token
+  }
+
+  if (rota === 'POST /webhook/meta/config') {
+    const c = await req.json().catch(() => null);
+    if (!c || typeof c !== 'object') return json({ erro: 'corpo inválido' }, 400);
+    await gravarConfig(c);
+    return json({ ok: true });
   }
 
   if (rota === 'POST /webhook/meta/apagar') {
