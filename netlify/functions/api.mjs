@@ -1,4 +1,4 @@
-import { linksRastreados, cliques, vitrine, imagens, videos, autorizado, json, contarClique } from '../lib/comum.mjs';
+import { linksRastreados, cliques, vitrine, imagens, videos, indique, autorizado, json, contarClique } from '../lib/comum.mjs';
 
 // API usada pelo robô (escrita, com chave) e pela própria página (leitura
 // pública da vitrine):
@@ -12,6 +12,8 @@ import { linksRastreados, cliques, vitrine, imagens, videos, autorizado, json, c
 //   POST /api/vitrine/preco      → corrige o preço de uma oferta [chave]
 //   POST /api/video              → guarda o vídeo do reel do dia [chave]
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
+//   POST /api/indique/registrar  → código + primeiro nome de quem indica [chave]
+//   GET  /api/indique/pontos     → pontos de cada código (indique um amigo) [chave]
 // Cada oferta fica no site pelo tempo que o link da plataforma vale (pedido
 // do usuário em 2026-09-29): Shopee 7 dias, Mercado Livre (e o resto) 24h,
 // contadas do horário em que saiu. Vale pra vitrine e pra página /o/<id>.
@@ -130,6 +132,22 @@ export default async (req) => {
     const bytes = Uint8Array.from(atob(videoBase64), (c) => c.charCodeAt(0));
     await videos().set('reel', bytes);
     return json({ ok: true, caminho: `/video/reel.mp4?v=${Date.now()}`, bytes: bytes.length });
+  }
+
+  // 🎁 Indique um amigo (2026-11-05) — ver c.mjs
+  if (rota === 'POST /api/indique/registrar') {
+    const { codigo, nome } = await req.json();
+    if (!/^[a-z0-9]{4,8}$/.test(codigo || '')) return json({ erro: 'código inválido' }, 400);
+    await indique().setJSON(`c:${codigo}`, { nome: String(nome || '').slice(0, 20), em: Date.now() });
+    return json({ ok: true });
+  }
+
+  if (rota === 'GET /api/indique/pontos') {
+    const store = indique();
+    const { blobs } = await store.list({ prefix: 'p:' });
+    const resultado = {};
+    for (const b of blobs) resultado[b.key.slice(2)] = await store.get(b.key, { type: 'json' });
+    return json(resultado);
   }
 
   if (rota === 'GET /api/cliques') {

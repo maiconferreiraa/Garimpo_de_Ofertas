@@ -10,6 +10,8 @@ export const cliques = () => getStore({ name: 'cliques', consistency: 'strong' }
 export const vitrine = () => getStore({ name: 'vitrine', consistency: 'strong' });
 export const imagens = () => getStore({ name: 'imagens' });
 export const videos = () => getStore({ name: 'videos', consistency: 'strong' });
+// 🎁 Indique um amigo (2026-11-05): c:<código> nome · p:<código> pontos · v:<aparelho> quem convidou
+export const indique = () => getStore({ name: 'indique', consistency: 'strong' });
 
 async function sha256(texto) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
