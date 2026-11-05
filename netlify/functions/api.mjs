@@ -14,6 +14,9 @@ import { linksRastreados, cliques, vitrine, imagens, videos, indique, autorizado
 //   GET  /api/cliques            → contagem de cliques de todos [chave]
 //   POST /api/indique/registrar  → código + primeiro nome de quem indica [chave]
 //   GET  /api/indique/pontos     → pontos de cada código (indique um amigo) [chave]
+//   GET  /api/indique/cadastros  → nome + WhatsApp de quem gerou link no site [chave]
+//   POST /api/indique/gerar      → gera o link de convite (público, ver /indique)
+//   GET  /api/indique/meus/<cód> → pontos de um código (público)
 // Cada oferta fica no site pelo tempo que o link da plataforma vale (pedido
 // do usuário em 2026-09-29): Shopee 7 dias, Mercado Livre (e o resto) 24h,
 // contadas do horário em que saiu. Vale pra vitrine e pra página /o/<id>.
@@ -52,6 +55,44 @@ export default async (req) => {
       || ((await store.get('ofertas', { type: 'json' })) || []).find((o) => o.id === mOferta[1]);
     if (!oferta || !ofertaValida(oferta)) return json({ erro: 'oferta não encontrada' }, 404);
     return json({ ...oferta, expiraEm: expiraEm(oferta) }, 200, { 'cache-control': 'public, max-age=300' });
+  }
+
+  // 🎁 Indique um amigo pelo site (2026-11-05: "a pessoa já clicar no link e
+  // ele gerar o seu link automático"). Público: nome + WhatsApp → código.
+  // O mesmo número sempre recebe o mesmo código. Até 5 cadastros por
+  // aparelho/IP por dia. O número fica num store privado (só o robô lê, com
+  // a chave) e serve só pra avisar quem ganhar e conferir se está no grupo.
+  if (rota === 'POST /api/indique/gerar') {
+    let corpo = {};
+    try { corpo = await req.json(); } catch {}
+    const nome = String(corpo.nome || '').replace(/[^\p{L}\s'-]/gu, ' ').trim().split(/\s+/)[0]?.slice(0, 20) || '';
+    let numero = String(corpo.numero || '').replace(/\D/g, '');
+    if (numero.length === 10 || numero.length === 11) numero = `55${numero}`;
+    if (!nome) return json({ erro: 'Escreva seu primeiro nome.' }, 400);
+    if (!/^55\d{10,11}$/.test(numero)) return json({ erro: 'Confira o WhatsApp com DDD, ex.: (31) 99999-9999.' }, 400);
+    const store = indique();
+    const ip = req.headers.get('x-nf-client-connection-ip') || req.headers.get('x-forwarded-for') || '';
+    const chaveIp = `ip:${(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(ip)).then((b) => [...new Uint8Array(b)].slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('')))}:${new Date().toISOString().slice(0, 10)}`;
+    const existente = await store.get(`n:${numero}`);
+    if (existente) return json({ codigo: existente, novo: false });
+    const vezes = Number(await store.get(chaveIp)) || 0;
+    if (vezes >= 5) return json({ erro: 'Muitos cadastros por aqui hoje. Tente amanhã.' }, 429);
+    const letras = 'abcdefghjkmnpqrstuvwxyz23456789';
+    let codigo;
+    do codigo = Array.from({ length: 5 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
+    while (await store.get(`c:${codigo}`));
+    await store.setJSON(`c:${codigo}`, { nome, em: Date.now(), origem: 'site' });
+    await store.set(`n:${numero}`, codigo);
+    await store.setJSON(`cad:${codigo}`, { nome, numero, em: Date.now() });
+    await store.set(chaveIp, String(vezes + 1));
+    return json({ codigo, novo: true });
+  }
+
+  // Pontos de um código (a própria pessoa vê na página /indique)
+  const mPontos = pathname.match(/^\/api\/indique\/meus\/([a-z0-9]{4,8})\/?$/);
+  if (req.method === 'GET' && mPontos) {
+    const p = await indique().get(`p:${mPontos[1]}`, { type: 'json' });
+    return json({ total: p?.total || 0 }, 200, { 'cache-control': 'no-store' });
   }
 
   // Visita que chegou por um link com origem (?c=compartilhe) — a página
@@ -136,10 +177,20 @@ export default async (req) => {
 
   // 🎁 Indique um amigo (2026-11-05) — ver c.mjs
   if (rota === 'POST /api/indique/registrar') {
-    const { codigo, nome } = await req.json();
+    const { codigo, nome, numero } = await req.json();
     if (!/^[a-z0-9]{4,8}$/.test(codigo || '')) return json({ erro: 'código inválido' }, 400);
     await indique().setJSON(`c:${codigo}`, { nome: String(nome || '').slice(0, 20), em: Date.now() });
+    // mesmo número no site depois → mesmo código (pediu primeiro pelo privado)
+    if (/^55\d{10,11}$/.test(numero || '')) await indique().set(`n:${numero}`, codigo);
     return json({ ok: true });
+  }
+
+  if (rota === 'GET /api/indique/cadastros') {
+    const store = indique();
+    const { blobs } = await store.list({ prefix: 'cad:' });
+    const resultado = {};
+    for (const b of blobs) resultado[b.key.slice(4)] = await store.get(b.key, { type: 'json' });
+    return json(resultado);
   }
 
   if (rota === 'GET /api/indique/pontos') {
