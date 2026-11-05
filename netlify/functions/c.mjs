@@ -8,7 +8,7 @@ import { linksRastreados, contarClique, indique, agoraBrasil } from '../lib/comu
 
 // 🎁 Indique um amigo (pedido do usuário em 2026-11-05). Cada membro pede o
 // link dele no privado da Ester Garimpou e recebe /c/<código>.
-//   GET /c/<código>        → página "Fulano te convidou" com os 4 grupos
+//   GET /c/<código>        → página "Fulano te convidou" com os grupos
 //   GET /c/<código>/<cat>  → conta 1 ponto pro código (1 por aparelho, e o
 //                            mesmo aparelho só vale pra quem convidou
 //                            primeiro) e manda pro convite do grupo
@@ -19,6 +19,8 @@ const GRUPOS = [
   ['ferramentas', '🔧 Ferramentas', 'Ferramentas Descontos & Cia'],
   ['moda', '💄 Moda & Beleza', 'Roupas, maquiagem e cuidados'],
   ['kids', '👶 Bebê & Kids', 'Tudo pros pequenos'],
+  ['auto', '🚗 Carros & Motos', 'Acessórios, som, capacete e peças'],
+  ['tech', '🎮 Tecnologia & Games', 'PC gamer, peças, notebook e videogame'],
 ];
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
