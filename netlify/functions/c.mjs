@@ -21,6 +21,7 @@ const GRUPOS = [
   ['kids', '👶 Bebê & Kids', 'Tudo pros pequenos'],
   ['auto', '🚗 Carros & Motos', 'Acessórios, som, capacete e peças'],
   ['tech', '🎮 Tecnologia & Games', 'PC gamer, peças, notebook e videogame'],
+  ['perfume', '🌸 Perfumes', 'Nacionais, árabes e importados'],
 ];
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
