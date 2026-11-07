@@ -1,0 +1,14 @@
+.git
+.gitignore
+.netlify
+.wrangler
+.assetsignore
+node_modules
+netlify
+cloudflare
+netlify.toml
+wrangler.jsonc
+package.json
+package-lock.json
+DEPLOY.md
+*.bak*

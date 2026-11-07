@@ -1,0 +1,8 @@
+// Config do Cloudflare Pages (estergarimpou.pages.dev) — bindings iguais ao wrangler.jsonc da raiz
+{
+  "name": "estergarimpou",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2025-09-01",
+  "d1_databases": [{ "binding": "DB", "database_name": "estergarimpou", "database_id": "81ea0928-b339-486b-a23b-6be844215d65" }],
+  "kv_namespaces": [{ "binding": "ARQUIVOS", "id": "afba53e98c764d2ea00b48ddb23cc694" }]
+}

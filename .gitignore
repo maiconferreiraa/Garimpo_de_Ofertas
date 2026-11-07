@@ -5,3 +5,6 @@
 .netlify
 
 node_modules
+.wrangler
+cloudflare/pages-build/dist
+cloudflare/pages-build/bundle
