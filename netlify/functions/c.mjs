@@ -16,7 +16,7 @@ import { linksRastreados, contarClique, indique, agoraBrasil } from '../lib/comu
 const ROBOS = /bot|crawler|spider|facebookexternalhit|facebookcatalog|meta-externalagent|facebot|headless|lighthouse|whatsapp|telegram|preview|curl|wget|python|node-fetch|axios/i;
 const GRUPOS = [
   ['diversos', '🛍️ Ofertas do dia', 'Ester Garimpou #10 — achadinhos de tudo'],
-  ['ferramentas', '🔧 Ferramentas & Eletrônicos', 'Ester Garimpou #45'],
+  ['ferramentas', '🔧 Ferramentas & Eletrônicos', 'Ferramentas, eletrônicos e câmeras wifi'],
   ['moda', '💄 Moda & Beleza', 'Roupas, maquiagem e cuidados'],
   ['kids', '👶 Bebê & Kids', 'Tudo pros pequenos'],
   ['auto', '🚗 Carros & Motos', 'Acessórios, som, capacete e peças'],
