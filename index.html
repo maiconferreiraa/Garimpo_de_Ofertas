@@ -41,6 +41,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hero-logos{display:flex;justify-content:center;gap:14px;margin-bottom:22px}
 .hero-logos a{display:block;border-radius:50%;transition:transform .15s}.hero-logos a:hover{transform:scale(1.08)}
 .hero-logos img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,176,32,0.4)}
+.grupos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:640px;margin:0 auto 16px}
+@media(min-width:640px){.grupos-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:639px){.grupo-tile:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 5px)}}
+.grupo-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px 12px;border-radius:16px;background:#14131c;border:1px solid rgba(255,176,32,0.22);text-decoration:none;color:#fff;transition:transform .15s,border-color .15s}
+.grupo-tile:hover{transform:translateY(-2px);border-color:rgba(255,176,32,0.6)}
+.grupo-tile img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,176,32,0.4);margin-bottom:4px}
+.grupo-nome{font-size:0.82rem;font-weight:800;line-height:1.25;text-align:center}
+.grupo-nome b{color:#ffb020;font-weight:800}
+.grupo-sub{font-size:0.72rem;color:rgba(255,255,255,0.55);text-align:center}
+.grupo-entrar{margin-top:6px;font-size:0.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#0a0a0c;background:#ffb020;padding:5px 12px;border-radius:100px}
 .gender-ctas{display:flex;flex-direction:column;gap:14px;max-width:400px;margin:0 auto 14px}
 .btn-gender{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px 20px;border:none;border-radius:14px;font-size:0.8rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s}
 .btn-masc{background:#1f6f8b;color:#fff}
@@ -141,11 +151,11 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 .fab-wrap{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:50}
 .fab-btn{width:58px;height:58px;border-radius:50%;background:#ffb020;color:#1a1200;border:none;font-size:1.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(255,176,32,0.45);transition:transform 0.2s ease}
 .fab-btn:active{transform:scale(0.94)}
-.fab-menu{position:absolute;right:0;bottom:76px;display:none;flex-direction:column;gap:10px;width:min(84vw,290px)}
+.fab-menu{position:absolute;right:0;bottom:76px;display:none;flex-direction:column;gap:10px;width:min(84vw,290px);max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain}
 .fab-menu.open{display:flex}
 .fab-menu-head{display:flex;align-items:center;justify-content:center}
 .fab-menu-head span{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#fff;background:#141320;border:1px solid rgba(255,176,32,0.35);padding:6px 14px;border-radius:100px;box-shadow:0 6px 16px rgba(0,0,0,0.5)}
-.fab-option{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;text-decoration:none;color:#fff;background:#181725;border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 24px rgba(0,0,0,0.45);animation:fabIn 0.32s cubic-bezier(0.22,1,0.36,1) both;position:relative;overflow:hidden}
+.fab-option{display:flex;flex-shrink:0;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;text-decoration:none;color:#fff;background:#181725;border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 24px rgba(0,0,0,0.45);animation:fabIn 0.32s cubic-bezier(0.22,1,0.36,1) both;position:relative;overflow:hidden}
 .fab-option::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
 .fab-option.fab-masc::before{background:#1f6f8b}
 .fab-option.fab-fem::before{background:#7c3aed}
@@ -262,22 +272,56 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
   <div class="eyebrow"><span class="pulse-dot"></span>Grupos de Garimpo</div>
   <h1>As melhores promoções da internet em um só lugar</h1>
   <p class="hero-sub">Ofertas de Mercado Livre, Shopee, Amazon, Netshoes e Magalu, garimpadas e verificadas todos os dias — direto no seu WhatsApp ou Telegram.</p>
-  <div class="hero-logos">
-    <a href="/r/grupo-ferramentas" target="_blank" rel="noopener" aria-label="Entrar no grupo Ferramentas"><img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo grupo Ferramentas"></a>
-    <a href="/r/grupo-diversos" target="_blank" rel="noopener" aria-label="Entrar no grupo Ofertas Gerais"><img decoding="async" src="/img/34563b1796.jpg" alt="Logo grupo Ofertas Gerais"></a>
+  <div class="grupos-grid">
+    <a class="grupo-tile" href="/r/grupo-diversos" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/34563b1796.jpg" alt="Logo Ester Garimpou #10">
+      <span class="grupo-nome">🛍️ Ester Garimpou <b>#10</b></span>
+      <span class="grupo-sub">Ofertas de tudo</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-ferramentas" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo Ferramentas &amp; Eletrônicos #45">
+      <span class="grupo-nome">🔧 Ferramentas &amp; Eletrônicos <b>#45</b></span>
+      <span class="grupo-sub">Ferramentas e eletrônicos</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-moda" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-moda.jpg" alt="Logo Moda &amp; Beleza #34">
+      <span class="grupo-nome">💄 Moda &amp; Beleza <b>#34</b></span>
+      <span class="grupo-sub">Roupas e maquiagem</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-kids" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-kids.jpg" alt="Logo Bebê &amp; Kids #35">
+      <span class="grupo-nome">👶 Bebê &amp; Kids <b>#35</b></span>
+      <span class="grupo-sub">Enxoval e brinquedos</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-auto" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-auto.jpg" alt="Logo Carros &amp; Motos #123">
+      <span class="grupo-nome">🚗 Carros &amp; Motos <b>#123</b></span>
+      <span class="grupo-sub">Acessórios e peças</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-tech" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-tech.jpg" alt="Logo Tecnologia &amp; Games #334">
+      <span class="grupo-nome">🎮 Tecnologia &amp; Games <b>#334</b></span>
+      <span class="grupo-sub">PC gamer e games</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-perfume" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-perfume.jpg" alt="Logo Perfumes #56">
+      <span class="grupo-nome">🌸 Perfumes <b>#56</b></span>
+      <span class="grupo-sub">Nacionais e importados</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
   </div>
   <div class="gender-ctas" id="main-ctas">
-    <a class="btn-gender btn-masc" href="/r/grupo-ferramentas" target="_blank" rel="noopener">
-      <span class="btn-icon">🔧</span> Entrar — Ferramentas &amp; Eletrônicos #45
-    </a>
-    <a class="btn-gender btn-fem" href="/r/grupo-diversos" target="_blank" rel="noopener">
-      <span class="btn-icon">🛍️</span> Entrar — Ester Garimpou #10
-    </a>
     <a class="btn-gender btn-tg" href="/r/grupo-telegram" target="_blank" rel="noopener">
       <span class="btn-icon">✈️</span> Prefere Telegram? Entrar no canal
     </a>
   </div>
-  <p class="social-proof">👥 Já são <span class="count-up" data-target="2500" data-prefix="+" data-suffix=" pessoas">+0 pessoas</span> nos dois grupos economizando junto</p>
+  <p class="social-proof">👥 Já são <span class="count-up" data-target="2500" data-prefix="+" data-suffix=" pessoas">+0 pessoas</span> nos nossos grupos economizando junto</p>
   <p class="social-proof" style="margin-top:6px">📦 Mais de <span class="count-up" data-target="50" data-suffix=" mil ofertas">0 mil ofertas</span> garimpadas e enviadas ao longo do tempo</p>
 </section>
 
@@ -740,13 +784,51 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
 <div class="urgency-section reveal">
   <div class="urgency-badge">⚠️ Vagas Limitadas</div>
   <h2 class="urgency-title">Entre agora e comece a economizar hoje</h2>
+  <div class="grupos-grid">
+    <a class="grupo-tile" href="/r/grupo-diversos" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/34563b1796.jpg" alt="Logo Ester Garimpou #10">
+      <span class="grupo-nome">🛍️ Ester Garimpou <b>#10</b></span>
+      <span class="grupo-sub">Ofertas de tudo</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-ferramentas" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/1a3fa39504.jpg" alt="Logo Ferramentas &amp; Eletrônicos #45">
+      <span class="grupo-nome">🔧 Ferramentas &amp; Eletrônicos <b>#45</b></span>
+      <span class="grupo-sub">Ferramentas e eletrônicos</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-moda" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-moda.jpg" alt="Logo Moda &amp; Beleza #34">
+      <span class="grupo-nome">💄 Moda &amp; Beleza <b>#34</b></span>
+      <span class="grupo-sub">Roupas e maquiagem</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-kids" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-kids.jpg" alt="Logo Bebê &amp; Kids #35">
+      <span class="grupo-nome">👶 Bebê &amp; Kids <b>#35</b></span>
+      <span class="grupo-sub">Enxoval e brinquedos</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-auto" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-auto.jpg" alt="Logo Carros &amp; Motos #123">
+      <span class="grupo-nome">🚗 Carros &amp; Motos <b>#123</b></span>
+      <span class="grupo-sub">Acessórios e peças</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-tech" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-tech.jpg" alt="Logo Tecnologia &amp; Games #334">
+      <span class="grupo-nome">🎮 Tecnologia &amp; Games <b>#334</b></span>
+      <span class="grupo-sub">PC gamer e games</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+    <a class="grupo-tile" href="/r/grupo-perfume" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-perfume.jpg" alt="Logo Perfumes #56">
+      <span class="grupo-nome">🌸 Perfumes <b>#56</b></span>
+      <span class="grupo-sub">Nacionais e importados</span>
+      <span class="grupo-entrar">Entrar →</span>
+    </a>
+  </div>
   <div class="gender-ctas" style="margin-bottom:0">
-    <a class="btn-gender btn-masc" href="/r/grupo-ferramentas" target="_blank" rel="noopener">
-      <span class="btn-icon">🔧</span> Quero Entrar — Ferramentas &amp; Eletrônicos #45
-    </a>
-    <a class="btn-gender btn-fem" href="/r/grupo-diversos" target="_blank" rel="noopener">
-      <span class="btn-icon">🛍️</span> Quero Entrar — Ester Garimpou #10
-    </a>
     <a class="btn-gender btn-tg" href="/r/grupo-telegram" target="_blank" rel="noopener">
       <span class="btn-icon">✈️</span> Quero Entrar — Canal no Telegram
     </a>
@@ -778,7 +860,52 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="fab-option-text">
         <p class="fab-option-eyebrow">🛍️ Ofertas Gerais</p>
         <p class="fab-option-title">Ester Garimpou #10</p>
-        <p class="fab-option-sub">Casa, perfumes, calçados e mais</p>
+        <p class="fab-option-sub">Casa, cozinha, utilidades e mais</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-fem" href="/r/grupo-moda" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-moda.jpg" alt="Logo Moda &amp; Beleza #34">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">💄 Moda &amp; Beleza</p>
+        <p class="fab-option-title">Moda &amp; Beleza #34</p>
+        <p class="fab-option-sub">Roupas, calçados, maquiagem e cuidados</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-masc" href="/r/grupo-kids" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-kids.jpg" alt="Logo Bebê &amp; Kids #35">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">👶 Bebê &amp; Kids</p>
+        <p class="fab-option-title">Bebê &amp; Kids #35</p>
+        <p class="fab-option-sub">Enxoval, roupinhas e brinquedos</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-masc" href="/r/grupo-auto" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-auto.jpg" alt="Logo Carros &amp; Motos #123">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">🚗 Carros &amp; Motos</p>
+        <p class="fab-option-title">Carros &amp; Motos #123</p>
+        <p class="fab-option-sub">Acessórios, som, capacete e peças</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-masc" href="/r/grupo-tech" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-tech.jpg" alt="Logo Tecnologia &amp; Games #334">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">🎮 Tecnologia &amp; Games</p>
+        <p class="fab-option-title">Tecnologia &amp; Games #334</p>
+        <p class="fab-option-sub">PC gamer, notebook, monitor e games</p>
+      </div>
+      <span class="fab-option-arrow">→</span>
+    </a>
+    <a class="fab-option fab-fem" href="/r/grupo-perfume" target="_blank" rel="noopener">
+      <img decoding="async" src="/img/grupo-perfume.jpg" alt="Logo Perfumes Brasileiros &amp; Importados #56">
+      <div class="fab-option-text">
+        <p class="fab-option-eyebrow">🌸 Perfumes</p>
+        <p class="fab-option-title">Perfumes #56</p>
+        <p class="fab-option-sub">Nacionais, árabes e importados</p>
       </div>
       <span class="fab-option-arrow">→</span>
     </a>
@@ -787,7 +914,7 @@ footer{position:relative;z-index:1;text-align:center;padding:24px 20px 40px;font
       <div class="fab-option-text">
         <p class="fab-option-eyebrow">✈️ Telegram</p>
         <p class="fab-option-title">Canal Ester Garimpou</p>
-        <p class="fab-option-sub">As ofertas dos dois grupos</p>
+        <p class="fab-option-sub">As ofertas de todos os grupos</p>
       </div>
       <span class="fab-option-arrow">→</span>
     </a>
